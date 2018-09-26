@@ -1,65 +1,67 @@
-﻿{% if Framework.IsAngular -%}
+﻿{% if UseAngularResultProcessing == false -%}
+{%  if Framework.IsAngular -%}
 function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): Observable<any> {
-{%     if WrapDtoExceptions -%}
+{%      if WrapDtoExceptions -%}
     return {{ Framework.RxJs.ObservableThrowMethod }}(new SwaggerException(message, status, response, headers, result));
-{%     else -%}
+{%      else -%}
     if(result !== null && result !== undefined)
         return {{ Framework.RxJs.ObservableThrowMethod }}(result);
     else
         return {{ Framework.RxJs.ObservableThrowMethod }}(new SwaggerException(message, status, response, headers, null));
-{%     endif -%}
+{%      endif -%}
 }
 
-{% elseif Framework.IsAngularJS -%}
+{%  elseif Framework.IsAngularJS -%}
 function throwException(q: ng.IQService, message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): ng.IPromise<any> {
-{%     if WrapDtoExceptions -%}
+{%      if WrapDtoExceptions -%}
     return q.reject(new SwaggerException(message, status, response, headers, result));
-{%     else -%}
+{%      else -%}
     if(result !== null && result !== undefined)
         return q.reject(result);
     else
         return q.reject(new SwaggerException(message, status, response, headers, null));
-{%     endif -%}
+{%      endif -%}
 }
 
-{% else -%}
+{%  else -%}
 function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): any {
-{%     if WrapDtoExceptions -%}
+{%      if WrapDtoExceptions -%}
     throw new SwaggerException(message, status, response, headers, result);
-{%     else -%}
+{%      else -%}
     if(result !== null && result !== undefined)
         throw result;
     else
         throw new SwaggerException(message, status, response, headers, null);
-{%     endif -%}
+{%      endif -%}
 }
 
+{%  endif -%}
 {% endif -%}
-{% if Framework.IsAngular -%}
+{% if Framework.IsAngular and UseAngularResultProcessing == false -%}
 function blobToText(blob: any): Observable<string> {
     return new Observable<string>((observer: any) => {
         if (!blob) {
             observer.next("");
             observer.complete();
         } else {
-            let reader = new FileReader(); 
-            reader.onload = function() { 
+            let reader = new FileReader();
+            reader.onload = function() {
                 observer.next(this.result);
                 observer.complete();
             }
-            reader.readAsText(blob); 
+            reader.readAsText(blob);
         }
     });
 }
 
 {% elseif Framework.IsAngularJS -%}
 function blobToText(blob: Blob, q: ng.IQService): ng.IPromise<string> {
-    return new q((resolve) => { 
-        let reader = new FileReader(); 
-        reader.onload = function() { 
+    return new q((resolve) => {
+        let reader = new FileReader();
+        reader.onload = function() {
             resolve(this.result);
         }
-        reader.readAsText(blob); 
+        reader.readAsText(blob);
     });
 }
 

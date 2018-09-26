@@ -27,10 +27,24 @@ import { Observable, from as {{ Framework.RxJs.ObservableFromMethod }}, throwErr
 {%             endif -%}
 import { Injectable, Inject, Optional, {{ Framework.Angular.InjectionTokenType }} } from '@angular/core';
 {%             if Framework.Angular.UseHttpClient -%}
-import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase, HttpParams } from '@angular/common/http';
 {%             else -%}
 import { Http, Headers, ResponseContentType, Response{% if UseTransformOptionsMethod %}, RequestOptionsArgs{% endif %} } from '@angular/http';
 {%             endif -%}
+
+interface IRequestOptions {
+  headers?: HttpHeaders | {
+    [header: string]: string | string[];
+  };
+  observe?: 'body';
+  params?: HttpParams | {
+      [param: string]: string | string[];
+  };
+  reportProgress?: boolean;
+  responseType?: 'json';
+  withCredentials?: boolean;
+}
+
 {%         endif -%}
 {%         if Framework.IsAurelia -%}
 
@@ -81,8 +95,8 @@ namespace {{ Namespace }} {
     status: number;
     headers: { [key: string]: any; };
     result: TResult;
-        
-    constructor(status: number, headers: { [key: string]: any; }, result: TResult) 
+
+    constructor(status: number, headers: { [key: string]: any; }, result: TResult)
     {
         this.status = status;
         this.headers = headers;
@@ -111,10 +125,10 @@ namespace {{ Namespace }} {
 {% if RequiresSwaggerExceptionClass -%}
 {% if ExportTypes %}export {% endif %}class SwaggerException extends Error {
     message: string;
-    status: number; 
-    response: string; 
+    status: number;
+    response: string;
     headers: { [key: string]: any; };
-    result: any; 
+    result: any;
 
     constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();

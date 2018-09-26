@@ -159,6 +159,13 @@ namespace NSwag.Commands.CodeGeneration
             set { Settings.WrapResponses = value; }
         }
 
+        [Argument(Name = "UseAngularResultProcessing", IsRequired = false, Description = "Specifies whether to use a simple Angular's result processing (without all these additional processXXX methods)")]
+        public bool UseAngularResultProcessing
+        {
+            get { return Settings.UseAngularResultProcessing; }
+            set { Settings.UseAngularResultProcessing = value; }
+        }
+
         [Argument(Name = "WrapResponseMethods", IsRequired = false, Description = "List of methods where responses are wrapped ('ControllerName.MethodName', WrapResponses must be true).")]
         public string[] WrapResponseMethods
         {

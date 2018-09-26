@@ -6,6 +6,7 @@
 // <author>Rico Suter, mail@rsuter.com</author>
 //-----------------------------------------------------------------------
 
+using System;
 using System.Linq;
 using NJsonSchema;
 using NJsonSchema.CodeGeneration;
@@ -67,7 +68,7 @@ namespace NSwag.CodeGeneration.TypeScript.Models
                 var response = GetSuccessResponse();
                 var isNullable = response?.IsNullable(_settings.CodeGeneratorSettings.SchemaType) == true;
 
-                var resultType = isNullable && SupportsStrictNullChecks && UnwrappedResultType != "void" && UnwrappedResultType != "null" ?
+                var resultType = isNullable && SupportsStrictNullChecks && !_settings.UseAngularResultProcessing && UnwrappedResultType != "void" && UnwrappedResultType != "null" ?
                     UnwrappedResultType + " | null" :
                     UnwrappedResultType;
 

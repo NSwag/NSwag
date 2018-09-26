@@ -46,25 +46,27 @@
         {% template Client.RequestBody %}
 
 {%     endif -%}
-        let options_ : any = {
-{%     if operation.HasBody -%}
+        let options_ : IRequestOptions = {
+{%     if UseAngularResultProcessing == false -%}
+{%          if operation.HasBody -%}
             body: content_,
-{%     endif -%}
-{%     if Framework.Angular.UseHttpClient -%}
+{%          endif -%}
+{%          if Framework.Angular.UseHttpClient -%}
             observe: "response",
             responseType: "blob",
-{%     else -%}
+{%          else -%}
             method: "{{ operation.HttpMethodLower }}",
+{%          endif -%}
 {%     endif -%}
 {%     if operation.IsFile and Framework.Angular.UseHttpClient == false -%}
             responseType: ResponseContentType.Blob,
 {%     endif -%}
             headers: new {% if Framework.Angular.UseHttpClient %}HttpHeaders{% else %}Headers{% endif %}({
 {%     for parameter in operation.HeaderParameters -%}
-                "{{ parameter.Name }}": {{ parameter.VariableName }} !== undefined && {{ parameter.VariableName }} !== null ? "" + {{ parameter.VariableName }} : "", 
+                "{{ parameter.Name }}": {{ parameter.VariableName }} !== undefined && {{ parameter.VariableName }} !== null ? "" + {{ parameter.VariableName }} : "",
 {%     endfor -%}
 {%     if operation.HasFormParameters == false -%}
-                "Content-Type": "{{ operation.Consumes }}", 
+                "Content-Type": "{{ operation.Consumes }}",
 {%     endif -%}
 {%     if operation.HasResultType and operation.HasAcceptHeaderParameterParameter == false -%}
                 "Accept": "{{ operation.Produces }}"
@@ -72,44 +74,51 @@
             })
         };
 
-{%     if UseTransformOptionsMethod -%}
+{%     if UseAngularResultProcessing == false -%}
+{%        if UseTransformOptionsMethod -%}
         return {{ Framework.RxJs.ObservableFromMethod }}(this.transformOptions(options_)).{% if Framework.UseRxJs6 %}pipe({% endif %}{{ Framework.RxJs.ObservableMergeMapMethod }}(transformedOptions_ => {
             return this.http.request({% if Framework.Angular.UseHttpClient %}"{{ operation.HttpMethodLower }}", {% endif %}url_, transformedOptions_);
         }){% if Framework.UseRxJs6 %}){% endif %}.{% if Framework.UseRxJs6 %}pipe({% endif %}{{ Framework.RxJs.ObservableMergeMapMethod }}((response_: any) => {
-{%     else -%}
+{%        else -%}
         return this.http.request({% if Framework.Angular.UseHttpClient %}"{{ operation.HttpMethodLower }}", {% endif %}url_, options_).{% if Framework.UseRxJs6 %}pipe({% endif %}{{ Framework.RxJs.ObservableMergeMapMethod }}((response_ : any) => {
-{%     endif -%}
-{%     if UseTransformResultMethod -%}
+{%        endif -%}
+{%        if UseTransformResultMethod -%}
             return this.transformResult(url_, response_, (r) => this.process{{ operation.ActualOperationNameUpper }}(<any>r));
-{%     else -%}
+{%        else -%}
             return this.process{{ operation.ActualOperationNameUpper }}(response_);
-{%     endif -%}
+{%        endif -%}
         }){% if Framework.UseRxJs6 %}){% endif %}.{% if Framework.UseRxJs6 %}pipe({% endif %}{{ Framework.RxJs.ObservableCatchMethod }}((response_: any) => {
             if (response_ instanceof {% if Framework.Angular.UseHttpClient %}HttpResponseBase{% else %}Response{% endif %}) {
                 try {
-{%     if UseTransformResultMethod -%}
+{%        if UseTransformResultMethod -%}
                     return this.transformResult(url_, response_, (r) => this.process{{ operation.ActualOperationNameUpper }}(<any>r));
-{%     else -%}
+{%        else -%}
                     return this.process{{ operation.ActualOperationNameUpper }}(<any>response_);
-{%     endif -%}
+{%        endif -%}
                 } catch (e) {
                     return <Observable<{{ operation.ResultType }}>><any>{{ Framework.RxJs.ObservableThrowMethod }}(e);
                 }
             } else
                 return <Observable<{{ operation.ResultType }}>><any>{{ Framework.RxJs.ObservableThrowMethod }}(response_);
         }){% if Framework.UseRxJs6 %}){% endif %};
+{%     else -%}
+        return this.http.{{ operation.HttpMethodLower }}<{{ operation.ResultType }}>(url_, {% if operation.HasBody %}content_, {% endif %}options_);
+{%     endif -%}
     }
 
+{%  if UseAngularResultProcessing == false -%}
     protected process{{ operation.ActualOperationNameUpper }}(response: {% if Framework.Angular.UseHttpClient %}HttpResponseBase{% else %}Response{% endif %}): Observable<{{ operation.ResultType }}> {
         const status = response.status;
-{% if Framework.Angular.UseHttpClient -%}
-        const responseBlob = 
-            response instanceof HttpResponse ? response.body : 
+{%    if Framework.Angular.UseHttpClient -%}
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-{% endif -%}
+{%    endif -%}
 
         {% template Client.ProcessResponse %}
     }
+{%  endif -%}
+
 {% endfor -%}
 }
 {% endif -%}

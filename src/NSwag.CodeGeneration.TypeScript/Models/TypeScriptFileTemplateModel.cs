@@ -86,6 +86,9 @@ namespace NSwag.CodeGeneration.TypeScript.Models
         /// <summary>Gets a value indicating whether required types should be imported.</summary>
         public bool ImportRequiredTypes => _settings.ImportRequiredTypes;
 
+        /// <summary>Gets or sets a value indicating whether to use a simple Angular's result processing (without all these additional processXXX methods) (default: false)</summary>
+        public bool UseAngularResultProcessing => _settings.UseAngularResultProcessing;
+
         /// <summary>Gets a value indicating whether to call 'transformOptions' on the base class or extension class.</summary>
         public bool UseTransformOptionsMethod => _settings.UseTransformOptionsMethod;
 
