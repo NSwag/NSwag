@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net461</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNet.WebApi.Versioning.ApiExplorer" Version="3.0.0-beta2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NSwag.Annotations\NSwag.Annotations.csproj" />
+      <ProjectReference Include="..\NSwag.SwaggerGeneration\NSwag.SwaggerGeneration.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="NJsonSchema, Version=9.12.2.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102">
+        <HintPath>..\..\..\..\.nuget\packages\njsonschema\9.12.2\lib\netstandard1.0\NJsonSchema.dll</HintPath>
+      </Reference>
+      <Reference Include="NSwag.SwaggerGeneration.WebApi, Version=11.20.1.0, Culture=neutral, PublicKeyToken=c2d88086e098d109">
+        <HintPath>..\NSwag.Sample.NetGlobalAsax\Bin\NSwag.SwaggerGeneration.WebApi.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+</Project>

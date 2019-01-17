@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net462</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNet.OData, Version=7.0.1.20718, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+        <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnet.odata\7.0.1\lib\net45\Microsoft.AspNet.OData.dll</HintPath>
+      </Reference>
+      <Reference Include="Microsoft.AspNet.OData.Versioning, Version=3.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+        <HintPath>..\..\..\..\.nuget\packages\microsoft.aspnet.odata.versioning\3.0.0\lib\net45\Microsoft.AspNet.OData.Versioning.dll</HintPath>
+      </Reference>
+      <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+        <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      </Reference>
+      <Reference Include="xunit.core, Version=2.3.0.3820, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+        <HintPath>..\..\..\..\.nuget\packages\xunit.extensibility.core\2.3.0\lib\netstandard1.1\xunit.core.dll</HintPath>
+      </Reference>
+      <Reference Include="xunit.core, Version=2.3.1.3858, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c">
+        <HintPath>..\..\..\..\.nuget\packages\xunit.extensibility.core\2.3.1\lib\netstandard1.1\xunit.core.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNet.OData" Version="7.1.0" />
+      <PackageReference Include="Microsoft.AspNet.OData.Versioning.ApiExplorer" Version="3.0.1" />
+      <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+      <PackageReference Include="Microsoft.AspNet.WebApi.Versioning.ApiExplorer" Version="3.0.1" />
+      <PackageReference Include="xunit" Version="2.4.1" />
+      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NSwag.Annotations\NSwag.Annotations.csproj" />
+      <ProjectReference Include="..\NSwag.Core\NSwag.Core.csproj" />
+      <ProjectReference Include="..\NSwag.SwaggerGeneration.WebApi.Versioned\NSwag.SwaggerGeneration.WebApi.Versioned.csproj" />
+    </ItemGroup>
+
+</Project>
