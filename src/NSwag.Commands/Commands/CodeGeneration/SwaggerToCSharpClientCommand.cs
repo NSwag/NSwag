@@ -205,6 +205,14 @@ namespace NSwag.Commands.CodeGeneration
             set { Settings.QueryNullValue = value; }
         }
 
+        [Argument(Name = nameof(InterfaceCancellationTokenParameter), IsRequired = false, 
+            Description = "Specifies whether to generate async method with CancellationToken as last parameter in interface.")]
+        public CancellationTokenParameterOption InterfaceCancellationTokenParameter
+        {
+            get { return Settings.InterfaceCancellationTokenParameter; }
+            set { Settings.InterfaceCancellationTokenParameter = value; }
+        }
+
         public override async Task<object> RunAsync(CommandLineProcessor processor, IConsoleHost host)
         {
             var result = await RunAsync();

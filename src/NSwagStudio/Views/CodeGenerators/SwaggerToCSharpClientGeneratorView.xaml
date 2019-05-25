@@ -145,6 +145,13 @@
                                           ToolTip="GenerateClientInterfaces"
                                           Content="Generate interfaces for Client classes" Margin="0,0,0,12" />
 
+                                <TextBlock Visibility="{Binding Command.GenerateClientInterfaces, Converter={StaticResource VisibilityConverter}}"
+                                           Text="Whether to generate async method with CancellationToken as last parameter in interface." Margin="0,0,0,6" />
+                                <ComboBox Visibility="{Binding Command.GenerateClientInterfaces, Converter={StaticResource VisibilityConverter}}"
+                                          SelectedItem="{Binding Command.InterfaceCancellationTokenParameter, Mode=TwoWay}" 
+                                          ToolTip="InterfaceCancellationTokenParameter"
+                                          ItemsSource="{Binding CancellationTokenParameterOptions}" Margin="0,0,0,12" />
+
                                 <CheckBox IsChecked="{Binding Command.SerializeTypeInformation, Mode=TwoWay}" 
                                           ToolTip="SerializeTypeInformation"
                                           Content="Serialize the type information in a $type property (not recommended, also sets TypeNameHandling = Auto)" Margin="0,0,0,12" />

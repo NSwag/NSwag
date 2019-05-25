@@ -59,13 +59,15 @@
     partial void ProcessResponse({{ HttpClientType }} client, System.Net.Http.HttpResponseMessage response);
 
 {% for operation in Operations -%}
-{%     if GenerateOptionalParameters == false -%}
+{%     if GenerateOptionalParameters == false or InterfaceAsyncMethodsWithoutCancellationToken -%}
+{%     if GenerateOptionalParameters == false or InterfaceAsyncMethodsWithCancellationToken == false -%}
     {% template Client.Method.Documentation %}
     {{ operation.MethodAccessModifier }} {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %} = null{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %})
     {
         return {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.VariableName }}, {% endfor %}System.Threading.CancellationToken.None);
     }
 
+{%     endif -%}
 {%     endif -%}
 {%     if GenerateSyncMethods -%}
     {% template Client.Method.Documentation %}

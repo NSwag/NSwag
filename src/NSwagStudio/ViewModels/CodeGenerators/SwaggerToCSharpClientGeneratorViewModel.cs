@@ -9,6 +9,7 @@
 using System;
 using System.Linq;
 using NJsonSchema.CodeGeneration.CSharp;
+using NSwag.CodeGeneration.CSharp;
 using NSwag.Commands.CodeGeneration;
 
 namespace NSwagStudio.ViewModels.CodeGenerators
@@ -37,6 +38,11 @@ namespace NSwagStudio.ViewModels.CodeGenerators
         /// <summary>Gets the list of class styles. </summary>
         public CSharpClassStyle[] ClassStyles { get; } = Enum.GetNames(typeof(CSharpClassStyle))
             .Select(t => (CSharpClassStyle)Enum.Parse(typeof(CSharpClassStyle), t))
+            .ToArray();
+
+        /// <summary>Gets the list of cancellation token options. </summary>
+        public CancellationTokenParameterOption[] CancellationTokenParameterOptions { get; } = Enum.GetNames(typeof(CancellationTokenParameterOption))
+            .Select(t => (CancellationTokenParameterOption)Enum.Parse(typeof(CancellationTokenParameterOption), t))
             .ToArray();
 
         /// <summary>Gets or sets the client code. </summary>

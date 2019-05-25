@@ -6,6 +6,8 @@
 // <author>Rico Suter, mail@rsuter.com</author>
 //-----------------------------------------------------------------------
 
+using System;
+
 namespace NSwag.CodeGeneration.CSharp
 {
     /// <summary>Settings for the <see cref="SwaggerToCSharpClientGenerator"/>.</summary>
@@ -30,6 +32,7 @@ namespace NSwag.CodeGeneration.CSharp
             ExposeJsonSerializerSettings = false;
             InjectHttpClient = true;
             ProtectedMethods = new string[0];
+            InterfaceCancellationTokenParameter = CancellationTokenParameterOption.Both;
         }
 
         /// <summary>Gets or sets the full name of the base class.</summary>
@@ -94,5 +97,28 @@ namespace NSwag.CodeGeneration.CSharp
 
         /// <summary>Gets or sets a value indicating whether to expose the JsonSerializerSettings property (default: false).</summary>
         public bool ExposeJsonSerializerSettings { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether to generate async method with CancellationToken as last parameter in interface. (default: both)</summary>
+        public CancellationTokenParameterOption InterfaceCancellationTokenParameter { get; set; }
+    }
+    
+    /// <summary>
+    /// Whether to generate async method with CancellationToken as last parameter in interface.
+    /// </summary>
+    [Flags]
+    public enum CancellationTokenParameterOption
+    {
+        /// <summary>
+        /// Generate async method with CancellationToken in interface
+        /// </summary>
+        Yes = 1,
+        /// <summary>
+        /// Generate async method without CancellationToken in interface
+        /// </summary>
+        No = 2,
+        /// <summary>
+        /// Generate both async methods
+        /// </summary>
+        Both = Yes | No
     }
 }

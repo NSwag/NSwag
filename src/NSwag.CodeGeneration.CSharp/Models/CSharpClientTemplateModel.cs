@@ -107,6 +107,12 @@ namespace NSwag.CodeGeneration.CSharp.Models
         /// <summary>Gets or sets a value indicating whether to generate synchronous methods (not recommended, default: false).</summary>
         public bool GenerateSyncMethods => _settings.GenerateSyncMethods;
 
+        /// <summary>Gets or sets a value indicating whether to generate asynchronous methods without CancellationToken (default: true).</summary>
+        public bool InterfaceAsyncMethodsWithoutCancellationToken => _settings.InterfaceCancellationTokenParameter.HasFlag(CancellationTokenParameterOption.No);
+
+        /// <summary>Gets or sets a value indicating whether to generate asynchronous methods with CancellationToken (default: true).</summary>
+        public bool InterfaceAsyncMethodsWithCancellationToken => _settings.InterfaceCancellationTokenParameter.HasFlag(CancellationTokenParameterOption.Yes);
+
         /// <summary>Gets or sets the client class access modifier.</summary>
         public string ClientClassAccessModifier => _settings.ClientClassAccessModifier;
 
