@@ -272,5 +272,80 @@ namespace NSwag.CodeGeneration.CSharp.Tests
             Assert.Contains(@"""options[optionalOrder.id]"") + ""=""", code);
             Assert.Contains("options.OptionalOrderId", code);
         }
+
+        [Theory]
+        [InlineData(Models.CSharpControllerStyle.Abstract)]
+        [InlineData(Models.CSharpControllerStyle.Partial)]
+        public void When_file_parameter_with_AspNetCore_controller_use_IFormFile(Models.CSharpControllerStyle controllerStyle)
+        {
+            //// Arrange
+            var document = new OpenApiDocument();
+            document.Paths["foo"] = new OpenApiPathItem
+            {
+                {
+                    OpenApiOperationMethod.Get, new OpenApiOperation
+                    {
+                        Parameters =
+                        {
+                            new OpenApiParameter
+                            {
+                                Kind = OpenApiParameterKind.FormData,
+                                Name = "foo",
+                                Type = JsonObjectType.File
+                            }
+                        }
+                    }
+                }
+            };
+
+            //// Act
+            var generator = new CSharpControllerGenerator(document, new CSharpControllerGeneratorSettings
+            {
+                ControllerStyle = controllerStyle,
+                ControllerTarget = Models.CSharpControllerTarget.AspNetCore
+            });
+            var code = generator.GenerateFile();
+
+            //// Assert
+            Assert.Contains("System.Threading.Tasks.Task Foo(Microsoft.AspNetCore.Http.IFormFile foo)", code);
+        }
+
+        [Theory]
+        [InlineData(Models.CSharpControllerStyle.Abstract)]
+        [InlineData(Models.CSharpControllerStyle.Partial)]
+        public void When_multiple_file_parameter_with_AspNetCore_controller_use_IFormFile(Models.CSharpControllerStyle controllerStyle)
+        {
+            //// Arrange
+            var document = new OpenApiDocument();
+            document.Paths["foo"] = new OpenApiPathItem
+            {
+                {
+                    OpenApiOperationMethod.Get, new OpenApiOperation
+                    {
+                        Parameters =
+                        {
+                            new OpenApiParameter
+                            {
+                                Kind = OpenApiParameterKind.FormData,
+                                Name = "foo",
+                                Type = JsonObjectType.File,
+                                CollectionFormat = OpenApiParameterCollectionFormat.Multi
+                            }
+                        }
+                    }
+                }
+            };
+
+            //// Act
+            var generator = new CSharpControllerGenerator(document, new CSharpControllerGeneratorSettings
+            {
+                ControllerStyle = controllerStyle,
+                ControllerTarget = Models.CSharpControllerTarget.AspNetCore
+            });
+            var code = generator.GenerateFile();
+
+            //// Assert
+            Assert.Contains("System.Threading.Tasks.Task Foo(System.Collections.Generic.IEnumerable<Microsoft.AspNetCore.Http.IFormFile> foo)", code);
+        }
     }
 }
