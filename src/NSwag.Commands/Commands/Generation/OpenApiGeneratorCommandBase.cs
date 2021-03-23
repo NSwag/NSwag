@@ -282,56 +282,39 @@ namespace NSwag.Commands.Generation
             }
             else
             {
-                try
+                // Search Program class and use CreateWebHostBuilder method
+                var assemblies = LoadAssemblies(AssemblyPaths, assemblyLoader);
+                var firstAssembly = assemblies.FirstOrDefault() ?? throw new InvalidOperationException("No assembly are be loaded from AssemblyPaths.");
+
+                var programType = firstAssembly.ExportedTypes.First(t => t.Name == "Program") ??
+                    throw new InvalidOperationException("The Program class could not be determined in the assembly '" + firstAssembly.FullName + "'.");
+
+                var method =
+                    programType.GetRuntimeMethod("CreateWebHostBuilder", new[] { typeof(string[]) }) ??
+                    programType.GetRuntimeMethod("CreateWebHostBuilder", new Type[0]);
+
+                if (method != null)
                 {
-                    // Search Program class and use CreateWebHostBuilder method
-                    var assemblies = LoadAssemblies(AssemblyPaths, assemblyLoader);
-                    var firstAssembly = assemblies.FirstOrDefault() ?? throw new InvalidOperationException("No assembly are be loaded from AssemblyPaths.");
-
-                    var programType = firstAssembly.ExportedTypes.First(t => t.Name == "Program") ??
-                        throw new InvalidOperationException("The Program class could not be determined in the assembly '" + firstAssembly.FullName + "'.");
-
-                    var method =
-                        programType.GetRuntimeMethod("CreateWebHostBuilder", new[] { typeof(string[]) }) ??
-                        programType.GetRuntimeMethod("CreateWebHostBuilder", new Type[0]);
+                    return ((IWebHostBuilder)method.Invoke(
+                        null, method.GetParameters().Length > 0 ? new object[] { new string[0] } : new object[0])).Build();
+                }
+                else
+                {
+#if NET5_0 || NETCOREAPP3_0
+                    method =
+                        programType.GetRuntimeMethod("CreateHostBuilder", new[] { typeof(string[]) }) ??
+                        programType.GetRuntimeMethod("CreateHostBuilder", new Type[0]);
 
                     if (method != null)
                     {
-                        return ((IWebHostBuilder)method.Invoke(
+                        return ((Microsoft.Extensions.Hosting.IHostBuilder)method.Invoke(
                             null, method.GetParameters().Length > 0 ? new object[] { new string[0] } : new object[0])).Build();
                     }
                     else
-                    {
-#if NET5_0 || NETCOREAPP3_0
-                        method =
-                            programType.GetRuntimeMethod("CreateHostBuilder", new[] { typeof(string[]) }) ??
-                            programType.GetRuntimeMethod("CreateHostBuilder", new Type[0]);
-
-                        if (method != null)
-                        {
-                            return ((Microsoft.Extensions.Hosting.IHostBuilder)method.Invoke(
-                                null, method.GetParameters().Length > 0 ? new object[] { new string[0] } : new object[0])).Build();
-                        }
-                        else
 #endif
-                        {
-                            throw new InvalidOperationException("The Program class '" + programType.FullName + "' does not have a CreateWebHostBuilder()/CreateHostBuilder() method.");
-                        }
-                    }
-                }
-                catch
-                {
-                    // Search Startup class as fallback
-                    var assemblies = LoadAssemblies(AssemblyPaths, assemblyLoader);
-                    var firstAssembly = assemblies.FirstOrDefault() ?? throw new InvalidOperationException("No assembly are be loaded from AssemblyPaths.");
-
-                    var startupType = firstAssembly.ExportedTypes.FirstOrDefault(t => t.Name == "Startup");
-                    if (startupType == null)
                     {
-                        throw new InvalidOperationException("The Startup class could not be determined in the assembly '" + firstAssembly.FullName + "'.");
+                        throw new InvalidOperationException("The Program class '" + programType.FullName + "' does not have a CreateWebHostBuilder()/CreateHostBuilder() method.");
                     }
-
-                    return WebHost.CreateDefaultBuilder().UseStartup(startupType).Build();
                 }
             }
         }
