@@ -7,7 +7,63 @@ urlBuilder_.Append(System.Uri.EscapeDataString("{{ parameter.Name }}") + "=").Ap
 {% elseif parameter.IsDate -%}
 urlBuilder_.Append(System.Uri.EscapeDataString("{{ parameter.Name }}") + "=").Append(System.Uri.EscapeDataString({% if parameter.IsNullable and parameter.IsRequired %}{{ parameter.VariableName }} != null ? {% endif %}{{ parameter.VariableName }}{% if parameter.IsSystemNullable %}.Value{% endif %}.ToString("{{ ParameterDateFormat }}", System.Globalization.CultureInfo.InvariantCulture){% if parameter.IsNullable and parameter.IsRequired %} : "{{ QueryNullValue }}"{% endif %})).Append("&");
 {% elseif parameter.IsArray -%}
+{%     if parameter.Explode -%}
 foreach (var item_ in {{ parameter.VariableName }}) { urlBuilder_.Append(System.Uri.EscapeDataString("{{ parameter.Name }}") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+{%     elseif parameter.IsForm -%}
+{
+    bool first_ = true;
+    foreach (var item_ in {{ parameter.VariableName }})
+    {
+        if (first_)
+        {
+            urlBuilder_.Append(System.Uri.EscapeDataString("{{ parameter.Name }}")).Append('=');
+            first_ = false;
+        }
+        else
+            urlBuilder_.Append(',');
+
+        urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture)));
+    }
+    if (!first_) 
+        urlBuilder_.Append('&');
+}
+{%     elseif parameter.IsSpaceDelimited -%}
+{
+    bool first_ = true;
+    foreach (var item_ in {{ parameter.VariableName }})
+    {
+        if (first_)
+        {
+            urlBuilder_.Append(System.Uri.EscapeDataString("{{ parameter.Name }}")).Append('=');
+            first_ = false;
+        }
+        else
+            urlBuilder_.Append("%20");
+
+        urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture)));
+    }
+    if (!first_) 
+        urlBuilder_.Append('&');
+}
+{%     elseif parameter.IsPipeDelimited -%}
+{
+    bool first_ = true;
+    foreach (var item_ in {{ parameter.VariableName }})
+    {
+        if (first_)
+        {
+            urlBuilder_.Append(System.Uri.EscapeDataString("{{ parameter.Name }}")).Append('=');
+            first_ = false;
+        }
+        else
+            urlBuilder_.Append('|');
+
+        urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture)));
+    }
+    if (!first_) 
+        urlBuilder_.Append('&');
+}
+{%     endif -%}
 {% elseif parameter.IsDeepObject -%}
 {%     for property in parameter.PropertyNames -%}
 if ({{parameter.Name}}.{{property.Name}} != null)

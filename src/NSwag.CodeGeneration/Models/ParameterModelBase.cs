@@ -90,16 +90,26 @@ namespace NSwag.CodeGeneration.Models
         public OpenApiParameterKind Kind => _parameter.Kind;
 
         /// <summary>Gets the parameter style.</summary>
-        public OpenApiParameterStyle Style => _parameter.Style;
+        public OpenApiParameterStyle Style => _parameter.ActualStyle;
 
         /// <summary>Gets the the value indicating if the parameter values should be exploded when included in the query string.</summary>
-        public bool Explode => _parameter.Explode;
+        public bool Explode => _parameter.ActualExplode;
 
         /// <summary>Gets a value indicating whether the parameter is a deep object (OpenAPI 3).</summary>
-        public bool IsDeepObject => _parameter.Style == OpenApiParameterStyle.DeepObject;
+        public bool IsDeepObject => _parameter.ActualStyle == OpenApiParameterStyle.DeepObject;
 
         /// <summary>Gets a value indicating whether the parameter has form style.</summary>
-        public bool IsForm => _parameter.Style == OpenApiParameterStyle.Form;
+        public bool IsForm => _parameter.ActualStyle == OpenApiParameterStyle.Form;
+
+        /// <summary>
+        /// Gets a value indicating whether this array parameter has space-delimited style (OpenAPI 3).
+        /// </summary>
+        public bool IsSpaceDelimited => this._parameter.ActualStyle == OpenApiParameterStyle.SpaceDelimeted;
+
+        /// <summary>
+        /// Gets a value indicating whether this array parameter has pipe-delimited style (OpenAPI 3).
+        /// </summary>
+        public bool IsPipeDelimited => this._parameter.ActualStyle == OpenApiParameterStyle.PipeDelimited;
 
         /// <summary>Gets the contained value property names (OpenAPI 3).</summary>
         public IEnumerable<PropertyModel> PropertyNames

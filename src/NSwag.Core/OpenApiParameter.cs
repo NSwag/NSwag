@@ -24,7 +24,7 @@ namespace NSwag
         private bool _isRequired = false;
         private JsonSchema _schema;
         private IDictionary<string, OpenApiExample> _examples;
-        private bool _explode;
+        private bool? _explode;
         private int? _position;
 
         private static readonly Regex AppJsonRegex = new Regex(@"application\/(\S+?)?\+?json;?(\S+)?");
@@ -56,6 +56,37 @@ namespace NSwag
             }
         }
 
+        /// <summary>Gets the actual style of the parameter (OpenAPI only).</summary>
+        [JsonIgnore]
+        public OpenApiParameterStyle ActualStyle
+        {
+            get
+            {
+                OpenApiParameterStyle ret;
+                if (_style == OpenApiParameterStyle.Undefined)
+                {
+                    switch (Kind)
+                    {
+                        case OpenApiParameterKind.Query:
+                        case OpenApiParameterKind.Cookie:
+                            ret = OpenApiParameterStyle.Form;
+                            break;
+                        case OpenApiParameterKind.Path:
+                        case OpenApiParameterKind.Header:
+                            ret = OpenApiParameterStyle.Simple;
+                            break;
+                        default:
+                            ret = OpenApiParameterStyle.Undefined;
+                            break;
+                    }
+                }
+                else
+                    ret = _style;
+
+                return ret;
+            }
+        }
+
         /// <summary>Gets or sets the style of the parameter (OpenAPI only).</summary>
         [JsonProperty(PropertyName = "style", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public OpenApiParameterStyle Style
@@ -68,11 +99,15 @@ namespace NSwag
             }
         }
 
+        /// <summary>Gets the actual explode setting for the parameter (OpenAPI only).</summary>
+        [JsonIgnore]
+        public bool ActualExplode => _explode ?? ActualStyle == OpenApiParameterStyle.Form;
+
         /// <summary>Gets or sets the explode setting for the parameter (OpenAPI only).</summary>
-        [JsonProperty(PropertyName = "explode", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonProperty(PropertyName = "explode", DefaultValueHandling = DefaultValueHandling.Include)]
         public bool Explode
         {
-            get => _explode;
+            get => _explode ?? ActualExplode;
             set
             {
                 _explode = value;
