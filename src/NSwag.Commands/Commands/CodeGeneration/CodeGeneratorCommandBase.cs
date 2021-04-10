@@ -41,7 +41,6 @@ namespace NSwag.Commands.CodeGeneration
         [Argument(Name = "EnumNameGeneratorType", IsRequired = false, Description = "The custom IEnumNameGenerator implementation type in the form 'assemblyName:fullTypeName' or 'fullTypeName').")]
         public string EnumNameGeneratorType { get; set; }
 
-        // TODO: Use InitializeCustomTypes method
         public void InitializeCustomTypes(AssemblyLoader.AssemblyLoader assemblyLoader)
         {
             if (!string.IsNullOrEmpty(TypeNameGeneratorType))
