@@ -58,13 +58,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_controller_has_RoutePrefix_then_paths_are_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var swagger = await generator.GenerateForControllerAsync<PersonsController>();
 
-            //// Assert
+            // Assert
             Assert.IsNotNull(swagger.Paths["/api/Persons"][OpenApiOperationMethod.Get]);
             Assert.IsNotNull(swagger.Paths["/api/Persons/{id}"][OpenApiOperationMethod.Get]);
             Assert.IsNotNull(swagger.Paths["/api/Persons"][OpenApiOperationMethod.Post]);
@@ -77,14 +77,14 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_route_contains_complex_path_parameter_then_it_is_correctly_parsed()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var swagger = await generator.GenerateForControllerAsync<PersonsController>();
             var json = swagger.ToJson(); 
 
-            //// Assert
+            // Assert
             Assert.IsTrue(swagger.Paths.ContainsKey("/api/Persons/RegexPathParameter/{deviceType}/{deviceId}/energyConsumed"));
         }
 
@@ -142,13 +142,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_controller_has_RoutePrefix_with_optional_parameters_then_paths_are_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var swagger = await generator.GenerateForControllerAsync<UsersController>();
 
-            //// Assert
+            // Assert
             Assert.IsNotNull(swagger.Paths["/api/users"][OpenApiOperationMethod.Get]);
             Assert.IsNotNull(swagger.Paths["/api/users/{userId}"][OpenApiOperationMethod.Get]);
             Assert.IsNotNull(swagger.Paths["/api/users"][OpenApiOperationMethod.Post]);

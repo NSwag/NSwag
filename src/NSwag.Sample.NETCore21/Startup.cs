@@ -44,12 +44,14 @@ namespace NSwag.Sample.NETCore21
 
             // Add middlewares to service the OpenAPI/Swagger document and the web UI
 
-            // URLs: 
+            // URLs:
             // - http://localhost:32367/swagger/a/swagger.json
             // - http://localhost:32367/swagger/b/swagger.json
             // - http://localhost:32367/swagger
 
+#pragma warning disable 618
             app.UseSwagger(); // registers the two documents in separate routes
+#pragma warning restore 618
             app.UseSwaggerUi3(); // registers a single Swagger UI (v3) with the two documents
         }
     }

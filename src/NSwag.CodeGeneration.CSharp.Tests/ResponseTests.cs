@@ -64,12 +64,12 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 }";
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings { ClassName = "MyClass" };
             var generator = new CSharpClientGenerator(document, settings);
             var code = generator.GenerateFile();
 
-            //// Act
+            // Act
             Assert.Contains("System.Threading.Tasks.Task<ValidationException>", code);
             Assert.DoesNotContain("System.Threading.Tasks.Task<object>", code);
             Assert.Contains("class BusinessException", code);
@@ -110,12 +110,12 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 }";
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings { ClassName = "MyClass" };
             var generator = new CSharpClientGenerator(document, settings);
             var code = generator.GenerateFile();
 
-            //// Act
+            // Act
             Assert.Contains("System.Threading.Tasks.Task<BusinessException>", code);
             Assert.DoesNotContain("System.Threading.Tasks.Task<object>", code);
             Assert.Contains("class BusinessException", code);
@@ -168,12 +168,12 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings { ClassName = "MyClass" };
             var generator = new CSharpClientGenerator(document, settings);
             var code = generator.GenerateFile();
 
-            //// Act
+            // Act
             Assert.Contains("System.Threading.Tasks.Task<System.Collections.Generic.ICollection<BusinessException>>", code);
             Assert.Contains("class BusinessException", code);
         }

@@ -19,9 +19,8 @@ namespace NSwag.Sample
     public class PetController : ControllerBase
     {
         /// <summary>
-        /// Creates an order 
+        /// Creates an order
         /// </summary>
-        /// <param name="order"></param>
         /// <response code="201">Order created</response>
         /// <response code="400">Order invalid</response>
         [HttpPost("createOrder")]
@@ -70,7 +69,7 @@ namespace NSwag.Sample
             return new ObjectResult(Array.Empty<Pet>());
         }
 
-        // Included this extra action not present in http://petstore.swagger.io/#/ 
+        // Included this extra action not present in http://petstore.swagger.io/#/
         // to represent an action with a required query parameter.
         [HttpGet("findByCategory")]
         [Produces("application/json")]

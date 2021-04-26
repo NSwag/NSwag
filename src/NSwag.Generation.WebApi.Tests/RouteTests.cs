@@ -31,9 +31,9 @@ namespace NSwag.Generation.WebApi.Tests
         {
             [SwaggerOperation("GetProducts")]
             [HttpGet, Route("products")]
-            public async Task<IHttpActionResult> GetProducts([FromUri] ProductPagedResult payload)
+            public Task<IHttpActionResult> GetProducts([FromUri] ProductPagedResult payload)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
 
             [SwaggerOperation("GetProductByUserDefinedId")]
@@ -52,56 +52,56 @@ namespace NSwag.Generation.WebApi.Tests
 
             [SwaggerOperation("DeleteProductByUserDefinedId")]
             [HttpDelete, Route("products/{userDefinedId}")]
-            public async Task<IHttpActionResult> Delete(string userDefinedId)
+            public Task<IHttpActionResult> Delete(string userDefinedId)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
 
             [SwaggerOperation("DeleteProductByUniqueId")]
             [HttpDelete, Route("products/{id:guid}")]
-            public async Task<IHttpActionResult> DeleteByUniqueId()
+            public Task<IHttpActionResult> DeleteByUniqueId()
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
 
             [SwaggerOperation("PutProductByUserDefinedId")]
             [HttpPut, Route("products/{userDefinedId}")]
-            public async Task<IHttpActionResult> Put(string userDefinedId, [FromBody] Product data)
+            public Task<IHttpActionResult> Put(string userDefinedId, [FromBody] Product data)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
 
             [SwaggerOperation("PutProductByUniqueId")]
             [HttpPut, Route("products/{id:guid}")]
-            public async Task<IHttpActionResult> Put(Guid id, [FromBody] Product data)
+            public Task<IHttpActionResult> Put(Guid id, [FromBody] Product data)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
 
             [SwaggerOperation("PostProducts")]
             [HttpPost, Route("products")]
-            public async Task<IHttpActionResult> FetchAll([FromBody] AddProductPayload data)
+            public Task<IHttpActionResult> FetchAll([FromBody] AddProductPayload data)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
         }
 
         [TestMethod]
         public async Task When_swagger_spec_is_generated_then_no_route_problem_is_detected()
         {
-            /// Arrange
+            // Arrange
             var settings = new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "{controller}/{id}",
                 AddMissingPathParameters = false,
             };
 
-            /// Act
+            // Act
             var generator = new WebApiOpenApiDocumentGenerator(settings);
             var document = await generator.GenerateForControllerAsync<ProductsController>();
             var swaggerSpecification = document.ToJson();
 
-            /// Assert
+            // Assert
             Assert.IsNotNull(swaggerSpecification);
         }
 
@@ -117,13 +117,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_path_parameter_has_wildcard_then_it_is_in_path()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<WildcardPathController>();
 
-            //// Assert
+            // Assert
             var operation = document.Operations.First();
             var parameter = operation.Operation.Parameters.First();
 

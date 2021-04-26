@@ -35,14 +35,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_generating_type_with_deep_inheritance_then_allOf_has_one_item()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var swaggerSpecification = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(2, Regex.Matches(Regex.Escape(swaggerSpecification), "allOf").Count); // must have an allOf in BB and CC, no more (rest are refs)
         }
 
@@ -66,14 +66,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_there_are_duplicate_paths_through_inheritance_then_the_base_method_is_ignored()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllersAsync(new Type[] { typeof(StandardController), typeof(SpecificController) });
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(4, document.Operations.Count());
 
             Assert.IsTrue(document.Operations.Any(o => o.Path == "/api/common/standard/export"));

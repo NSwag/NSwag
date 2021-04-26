@@ -56,13 +56,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_multple_responses_with_same_status_code_are_defined_then_they_are_merged_and_common_base_type_used_as_response_schema()
         {
-            /// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            /// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
 
-            /// Assert
+            // Assert
             var operationAbc = document.Operations.Single(o => o.Path.Contains("Abc"));
             var responseAbc = operationAbc.Operation.ActualResponses.First(r => r.Key == "500").Value;
 
@@ -82,23 +82,23 @@ namespace NSwag.Generation.WebApi.Tests
             [Route("{username}/cookies")]
             [HttpGet]
             [SwaggerResponse(HttpStatusCode.OK, typeof(CookieCollection))]
-            public async Task<IHttpActionResult> GetCookies(string username)
+            public Task<IHttpActionResult> GetCookies(string username)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
         }
 
         [TestMethod]
         public async Task When_spec_is_generated_then_no_NPE_is_thrown()
         {
-            /// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            /// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<MyApiController>();
             var json = document.ToJson();
 
-            /// Assert
+            // Assert
             Assert.IsTrue(document.Operations.First().Operation.ActualResponses.First().Value.Schema.Item.IsAnyType);
         }
     }

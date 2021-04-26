@@ -44,34 +44,34 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_primitive_then_it_is_a_query_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithoutAttribute").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Query, operation.ActualParameters[0].Kind);
         }
 
         [TestMethod]
         public async Task When_parameter_is_primitive_and_has_FromUri_then_it_is_a_query_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithFromUriAttribute").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Query, operation.ActualParameters[0].Kind);
         }
 
@@ -79,34 +79,34 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_primitive_and_has_FromBody_then_it_is_a_body_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithFromBodyAttribute").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Body, operation.ActualParameters[0].Kind);
         }
 
         [TestMethod]
         public async Task When_FromUri_has_array_property_then_collectionFormat_is_set_to_multi()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_Filter").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterCollectionFormat.Multi, operation.ActualParameters[0].CollectionFormat);
         }
 
@@ -121,17 +121,17 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_array_and_has_FromUri_then_it_is_a_query_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<ControllerWithArrayQueryParameter>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             var operation = document.Operations.First().Operation;
             var parameter = operation.ActualParameters.First();
 
@@ -143,29 +143,29 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         public class MyTestClass : ApiController
         {
             [Route("Foo")]
-            public async Task Foo(int id, bool? someNullableParam)
+            public Task Foo(int id, bool? someNullableParam)
             {
-
+                return Task.CompletedTask;
             }
 
             [Route("Bar")]
-            public async Task Bar(int id, bool? someNullableParam = null)
+            public Task Bar(int id, bool? someNullableParam = null)
             {
-
+                return Task.CompletedTask;
             }
         }
 
         [TestMethod]
         public async Task When_parameter_is_nullable_then_it_is_optional()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings { IsAspNetCore = true });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<MyTestClass>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(document.Operations.First().Operation.Parameters[1].IsRequired);
             Assert.IsFalse(document.Operations.Last().Operation.Parameters[1].IsRequired);
         }

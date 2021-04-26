@@ -22,6 +22,8 @@ using NJsonSchema.Generation;
 using NJsonSchema.Infrastructure;
 using NSwag.Collections;
 
+#pragma warning disable 618 // obsolete warning for ToJson
+
 namespace NSwag
 {
     /// <summary>Describes a JSON web service.</summary>

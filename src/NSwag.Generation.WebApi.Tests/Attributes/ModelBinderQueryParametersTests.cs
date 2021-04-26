@@ -65,14 +65,14 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_model_binder_is_used_in_get_its_defined_as_query_param()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<ModelBinderQueryParametersController>();
             var operation = document.Operations.First(o => o.Path == "/temptypes").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Query, operation.ActualParameters[0].Kind);
             Assert.AreEqual(OpenApiParameterKind.Query, operation.ActualParameters[1].Kind);
             Assert.AreEqual(OpenApiParameterKind.Query, operation.ActualParameters[2].Kind);

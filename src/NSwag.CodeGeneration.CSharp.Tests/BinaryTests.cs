@@ -47,11 +47,11 @@ components:
 
             var document = await OpenApiYamlDocument.FromYamlAsync(yaml);
 
-            //// Act
+            // Act
             var codeGenerator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("public async System.Threading.Tasks.Task<FileToken> AddFileAsync(System.IO.Stream body, System.Threading.CancellationToken cancellationToken)", code);
             Assert.Contains("var content_ = new System.Net.Http.StreamContent(body);", code);
         }
@@ -98,13 +98,13 @@ components:
 
             var document = await OpenApiYamlDocument.FromYamlAsync(yaml);
 
-            //// Act
+            // Act
             CSharpControllerGeneratorSettings settings = new CSharpControllerGeneratorSettings();
             settings.ControllerTarget = CSharpControllerTarget.AspNetCore;
             var codeGenerator = new CSharpControllerGenerator(document, settings);
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("Microsoft.AspNetCore.Http.IFormFile body", code);
             Assert.DoesNotContain("FromBody]", code);
         }
@@ -153,13 +153,13 @@ components:
 
             var document = await OpenApiYamlDocument.FromYamlAsync(yaml);
 
-            //// Act
+            // Act
             CSharpControllerGeneratorSettings settings = new CSharpControllerGeneratorSettings();
             settings.ControllerTarget = CSharpControllerTarget.AspNetCore;
             var codeGenerator = new CSharpControllerGenerator(document, settings);
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("System.Collections.Generic.ICollection<Microsoft.AspNetCore.Http.IFormFile> body", code);
             Assert.DoesNotContain("FromBody]", code);
         }
@@ -220,11 +220,11 @@ components:
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);", code);
             Assert.Contains("var content_file_ = new System.Net.Http.StreamContent(file.Data);", code);
             Assert.Contains("class FileParameter", code);
@@ -290,11 +290,11 @@ components:
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);", code);
             Assert.Contains("var content_files_ = new System.Net.Http.StreamContent(item_.Data);", code);
             Assert.Contains("class FileParameter", code);
@@ -371,11 +371,11 @@ components:
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);", code);
             Assert.Contains("var content_contents_ = new System.Net.Http.StreamContent(contents.Data);", code);
             Assert.Contains("class FileParameter", code);

@@ -8,7 +8,7 @@ namespace NSwag.CodeGeneration.CSharp.Tests
         [Fact]
         public async Task When_parameter_is_array_then_CSharp_is_correct()
         {
-            //// Arrange
+            // Arrange
             var swagger = @"{
   ""swagger"" : ""2.0"",
   ""info"" : {
@@ -60,12 +60,12 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 ";
             var document = await OpenApiDocument.FromJsonAsync(swagger);
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings { ClassName = "MyClass" };
             var generator = new CSharpClientGenerator(document, settings);
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains(@"foreach (var item_ in elementId) { urlBuilder_.Append(System.Uri.EscapeDataString(""elementId"") + ""="").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append(""&""); }", code);
         }
         
@@ -134,12 +134,12 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings { ClassName = "MyClass" };
             var generator = new CSharpClientGenerator(document, settings);
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);", code);
             Assert.Contains("foreach (var item_ in arrayOfIds)", code);
             Assert.Contains("content_.Add(new System.Net.Http.StringContent(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture)), \"arrayOfIds\");", code);

@@ -29,7 +29,7 @@ namespace NSwag.AspNetCore
     public class SwaggerSettings
 #endif
     {
-        /// <summary>Initializes a new instance of the <see cref="SwaggerSettings"/> class.</summary>
+        /// <summary>Initializes a new instance of the class.</summary>
         public SwaggerSettings()
         {
 #if AspNetOwin

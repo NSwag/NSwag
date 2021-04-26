@@ -23,14 +23,14 @@ namespace NSwag.Generation.WebApi.Tests.Nullability
         [TestMethod]
         public async Task When_parameter_has_NotNullAttribute_then_it_is_not_nullable()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<NotNullParameterTestController>();
             var json = document.ToJson();
 
-            //// Assert 
+            // Assert 
             Assert.IsFalse(document.Operations.First().Operation.Parameters[0].IsNullable(SchemaType.Swagger2));
             Assert.IsTrue(document.Operations.First().Operation.Parameters[1].IsNullable(SchemaType.Swagger2));
         }
@@ -47,14 +47,14 @@ namespace NSwag.Generation.WebApi.Tests.Nullability
         [TestMethod]
         public async Task When_AllowNullableBodyFalse_parameter_has_RequiredAttribute_then_it_is_not_nullable()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings() {AllowNullableBodyParameters = false});
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<RequiredParameterTestController>();
             var json = document.ToJson();
 
-            //// Assert 
+            // Assert 
             Assert.IsFalse(document.Operations.First().Operation.Parameters[0].IsNullable(SchemaType.Swagger2));
             Assert.IsTrue(document.Operations.First().Operation.Parameters[1].IsNullable(SchemaType.Swagger2));
         }
@@ -72,14 +72,14 @@ namespace NSwag.Generation.WebApi.Tests.Nullability
         [TestMethod]
         public async Task When_AllowNullableBodyTrue_parameter_then_it_is_nullable()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings() { AllowNullableBodyParameters = true });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<ParameterTestController>();
             var json = document.ToJson();
 
-            //// Assert 
+            // Assert 
             Assert.IsTrue(document.Operations.First().Operation.Parameters[0].IsNullable(SchemaType.Swagger2));
             Assert.IsTrue(document.Operations.First().Operation.Parameters[1].IsNullable(SchemaType.Swagger2));
         }
@@ -87,14 +87,14 @@ namespace NSwag.Generation.WebApi.Tests.Nullability
         [TestMethod]
         public async Task When_AllowNullableBodyFalse_parameter_then_it_is_not_nullable()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings() { AllowNullableBodyParameters = false });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<ParameterTestController>();
             var json = document.ToJson();
 
-            //// Assert 
+            // Assert 
             Assert.IsFalse(document.Operations.First().Operation.Parameters[0].IsNullable(SchemaType.Swagger2));
             Assert.IsTrue(document.Operations.First().Operation.Parameters[1].IsNullable(SchemaType.Swagger2));
         }

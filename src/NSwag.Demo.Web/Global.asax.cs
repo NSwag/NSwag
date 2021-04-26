@@ -10,7 +10,7 @@ namespace NSwag.Demo.Web
         {
             RouteTable.Routes.MapOwinPath("swagger", app =>
             {
-                app.UseSwaggerUi(typeof(WebApiApplication).Assembly, s =>
+                app.UseSwaggerUi3(typeof(WebApiApplication).Assembly, s =>
                 {
                     s.GeneratorSettings.DefaultUrlTemplate = "api/{controller}/{action}/{id}";
                     s.MiddlewareBasePath = "/swagger";

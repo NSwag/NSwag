@@ -11,9 +11,9 @@ namespace NSwag.Sample.NetCoreAngular.Controllers
     {
         [HttpGet]
         [Route("[action]")]
-        public async Task<IEnumerable<FileType>> ReverseQueryEnumList([FromQuery]IEnumerable<FileType> fileTypes)
+        public Task<IEnumerable<FileType>> ReverseQueryEnumList([FromQuery]IEnumerable<FileType> fileTypes)
         {
-            return fileTypes.Reverse();
+            return Task.FromResult(fileTypes.Reverse());
         }
     }
 }

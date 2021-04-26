@@ -9,26 +9,26 @@ namespace NSwag.Generation.WebApi.Tests.OperationNameGenerator
         [TestMethod]
         public void When_path_is_slash_then_operation_name_is_index()
         {
-            //// Arrange
+            // Arrange
             var generator = new MultipleClientsFromPathSegmentsOperationNameGenerator();
 
-            //// Act
+            // Act
             var operationName = generator.GetOperationName(new OpenApiDocument(), "/", OpenApiOperationMethod.Get, new OpenApiOperation());
 
-            //// Assert
+            // Assert
             Assert.AreEqual("Index", operationName);
         }
 
         [TestMethod]
         public void When_path_with_path_parameter_is_slash_then_operation_name_is_index()
         {
-            //// Arrange
+            // Arrange
             var generator = new MultipleClientsFromPathSegmentsOperationNameGenerator();
 
-            //// Act
+            // Act
             var operationName = generator.GetOperationName(new OpenApiDocument(), "/{id}", OpenApiOperationMethod.Get, new OpenApiOperation());
 
-            //// Assert
+            // Assert
             Assert.AreEqual("Index", operationName);
         }
     }

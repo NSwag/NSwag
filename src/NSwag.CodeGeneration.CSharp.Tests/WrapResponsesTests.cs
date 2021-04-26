@@ -26,18 +26,18 @@ namespace NSwag.CodeGeneration.CSharp.Tests
         [Fact]
         public async Task When_success_responses_are_wrapped_then_SwaggerResponse_is_returned()
         {
-            //// Arrange
+            // Arrange
             var swaggerGen = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await swaggerGen.GenerateForControllerAsync<TestController>();
 
-            //// Act
+            // Act
             var codeGen = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings
             {
                 WrapResponses = true
             });
             var code = codeGen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("Task<SwaggerResponse<string>>", code);
             Assert.Contains("Task<SwaggerResponse>", code);
         }
@@ -45,18 +45,18 @@ namespace NSwag.CodeGeneration.CSharp.Tests
         [Fact]
         public async Task When_success_responses_are_wrapped_then_SwaggerResponse_is_returned_web_api()
         {
-            //// Arrange
+            // Arrange
             var swaggerGen = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await swaggerGen.GenerateForControllerAsync<TestController>();
 
-            //// Act
+            // Act
             var codeGen = new CSharpControllerGenerator(document, new CSharpControllerGeneratorSettings
             {
                 WrapResponses = true
             });
             var code = codeGen.GenerateFile();
             
-            //// Assert
+            // Assert
             Assert.Contains("Task<SwaggerResponse<string>>", code);
             Assert.Contains("Task<SwaggerResponse>", code);
         }
@@ -64,14 +64,14 @@ namespace NSwag.CodeGeneration.CSharp.Tests
         [Fact]
         public async Task When_success_responses_are_wrapped_then_SwaggerResponse_is_returned_web_api_aspnetcore()
         {
-            //// Arrange
+            // Arrange
             var swaggerGen = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 IsAspNetCore = true
             });
             var document = await swaggerGen.GenerateForControllerAsync<TestController>();
 
-            //// Act
+            // Act
             var codeGen = new CSharpControllerGenerator(document, new CSharpControllerGeneratorSettings
             {
                 WrapResponses = true,
@@ -79,7 +79,7 @@ namespace NSwag.CodeGeneration.CSharp.Tests
             });
             var code = codeGen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.IActionResult>", code);
         }
     }

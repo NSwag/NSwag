@@ -37,7 +37,7 @@ namespace NSwag.Generation.WebApi.Tests.Integration
                 {
                     return new Device();
                 }
-                catch (System.Exception err)
+                catch (System.Exception)
                 {
                     throw;
                 }
@@ -46,13 +46,13 @@ namespace NSwag.Generation.WebApi.Tests.Integration
             [Swashbuckle.Swagger.Annotations.SwaggerOperation("CreateDevice")]
             [Swashbuckle.Swagger.Annotations.SwaggerResponse(HttpStatusCode.Created)]
             [Swashbuckle.Swagger.Annotations.SwaggerResponse(HttpStatusCode.OK, Type = typeof(Device))]
-            public async Task<Device> Post([FromBody] Device value)
+            public Task<Device> Post([FromBody] Device value)
             {
                 try
                 {
-                    return new Device();
+                    return Task.FromResult(new Device());
                 }
-                catch (System.Exception err)
+                catch (System.Exception)
                 {
                     throw;
                 }
@@ -63,13 +63,13 @@ namespace NSwag.Generation.WebApi.Tests.Integration
             [Swashbuckle.Swagger.Annotations.SwaggerResponse(HttpStatusCode.NotFound)]
             [Swashbuckle.Swagger.Annotations.SwaggerResponse(HttpStatusCode.Conflict, Type = typeof(HttpResponseException))]
 
-            public async Task<Device> Put(string id, [FromBody] Device value)
+            public Task<Device> Put(string id, [FromBody] Device value)
             {
                 try
                 {
-                    return new Device();
+                    return Task.FromResult(new Device());
                 }
-                catch (System.Exception err)
+                catch (System.Exception)
                 {
                     throw;
                 }
@@ -78,15 +78,15 @@ namespace NSwag.Generation.WebApi.Tests.Integration
             [Swashbuckle.Swagger.Annotations.SwaggerOperation("DeleteDevice")]
             [Swashbuckle.Swagger.Annotations.SwaggerResponse(HttpStatusCode.OK, Type = typeof(bool))]
             [Swashbuckle.Swagger.Annotations.SwaggerResponse(HttpStatusCode.NotFound)]
-            public async Task<bool> Delete(string id)
+            public Task<bool> Delete(string id)
             {
                 try
                 {
                     var deleted = true;
 
-                    return deleted;
+                    return Task.FromResult(deleted);
                 }
-                catch (System.Exception err)
+                catch (System.Exception)
                 {
                     throw;
                 }
@@ -96,14 +96,14 @@ namespace NSwag.Generation.WebApi.Tests.Integration
         [TestMethod]
         public async Task When_optional_id_is_used_then_generation_works()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<ValuesController>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(json != null);
         }
     }

@@ -8,7 +8,7 @@ namespace NSwag.Core.Tests
         [Fact]
         public void When_generating_operation_ids_then_all_are_set()
         {
-            //// Arrange
+            // Arrange
             var document = new OpenApiDocument();
             document.Paths["path"] = new OpenApiPathItem
             {
@@ -22,10 +22,10 @@ namespace NSwag.Core.Tests
                 }
             };
 
-            //// Act
+            // Act
             document.GenerateOperationIds();
 
-            //// Assert
+            // Assert
             Assert.True(document.Operations.GroupBy(o => o.Operation.OperationId).All(g => g.Count() == 1));
         }
     }

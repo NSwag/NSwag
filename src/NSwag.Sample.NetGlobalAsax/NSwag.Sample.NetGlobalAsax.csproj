@@ -198,7 +198,7 @@
     <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0" />
     <PackageReference Include="Modernizr" Version="2.6.2" />
     <PackageReference Include="Namotion.Reflection" Version="1.0.19" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NJsonSchema" Version="10.4.1" />
     <PackageReference Include="Owin" Version="1.0.0" />
     <PackageReference Include="Respond" Version="1.2.0" />

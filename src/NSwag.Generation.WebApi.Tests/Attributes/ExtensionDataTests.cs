@@ -19,13 +19,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_controller_has_extension_data_attributes_then_they_are_processed()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TagsTest1Controller>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(2, document.ExtensionData.Count);
 
             Assert.AreEqual("b", document.ExtensionData["a"]);
@@ -45,13 +45,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_operation_has_extension_data_attributes_then_they_are_processed()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TagsTest3Controller>();
 
-            //// Assert
+            // Assert
             var extensionData = document.Operations.First().Operation.ExtensionData;
             Assert.AreEqual(2, extensionData.Count);
 

@@ -23,11 +23,11 @@ namespace NSwag.Generation.AspNetCore.Tests.Web.Controllers.Parameters
         }
 
         [HttpPost("UploadAttachment")]
-        public async Task<IActionResult> UploadAttachment(
+        public Task<IActionResult> UploadAttachment(
             [FromRoute][Required] string caseId,
             [FromForm] CaseAttachmentModel model)
         {
-            return Ok();
+            return Task.FromResult<IActionResult>(Ok());
         }
 
         public class CaseAttachmentModel

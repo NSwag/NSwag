@@ -163,17 +163,17 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_complex_then_it_is_a_body_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithoutAttribute").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Body, operation.ActualParameters[0].Kind);
             Assert.AreEqual("data", operation.ActualParameters[0].Name);
         }
@@ -181,17 +181,17 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_complex_and_has_FromUri_then_complex_object_properties_are_added()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithFromUriAttribute").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual("My comment.", operation.Summary);
             Assert.AreEqual("My remarks.", operation.Description);
             Assert.AreEqual(OpenApiParameterKind.Query, operation.ActualParameters[0].Kind);
@@ -204,18 +204,18 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_complex_and_has_FromBody_then_it_is_a_body_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithFromBodyAttribute").Operation;
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Body, operation.ActualParameters[0].Kind);
             Assert.AreEqual("data", operation.ActualParameters[0].Name);
         }
@@ -223,18 +223,18 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_complex_and_has_CustomBinding_that_will_not_read_body_then_it_is_a_query_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithCustomFromUriParameterBinder").Operation;
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Query, operation.ActualParameters[0].Kind);
             Assert.AreEqual("data", operation.ActualParameters[0].Name);
         }
@@ -242,13 +242,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_complex_and_has_CustomBinding_that_will_not_read_body_with_mapped_parameter_then_it_is_a_query_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             generator.Settings.TypeMappers.Add(
                 new PrimitiveTypeMapper(
                     typeof(MyMappedParameter),
@@ -262,7 +262,7 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithCustomFromUriTypeMappedParameter").Operation;
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Query, operation.ActualParameters[0].Kind);
             Assert.AreEqual(JsonObjectType.String, operation.ActualParameters[0].Type);
             Assert.AreEqual("mappedParameter", operation.ActualParameters[0].Name);
@@ -271,18 +271,18 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_complex_and_has_CustomBinding_that_will_read_body_then_it_is_a_body_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithCustomFromBodyParameterBinder").Operation;
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Body, operation.ActualParameters[0].Kind);
             Assert.AreEqual("data", operation.ActualParameters[0].Name);
         }
@@ -290,18 +290,18 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_complex_and_has_CustomBinding_with_no_WillReadBody_then_it_is_a_body_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithCustomFromBody2ParameterBinder").Operation;
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Body, operation.ActualParameters[0].Kind);
             Assert.AreEqual("data", operation.ActualParameters[0].Name);
         }
@@ -331,19 +331,19 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
             // FromRouteAttribute is only available in ASP.NET Core
             // Issue: https://github.com/RicoSuter/NSwag/issues/513
 
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 IsAspNetCore = true,
                 DefaultPropertyNameHandling = PropertyNameHandling.CamelCase
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<ComplexPathParameterController>();
             var operation = document.Operations.First().Operation;
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Path, operation.Parameters[0].Kind);
             Assert.AreEqual("title", operation.Parameters[0].Name);
             Assert.AreEqual(OpenApiParameterKind.Query, operation.Parameters[1].Kind);

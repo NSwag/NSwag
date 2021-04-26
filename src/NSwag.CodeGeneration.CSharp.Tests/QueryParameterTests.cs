@@ -66,11 +66,11 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = OpenApiDocument.FromJsonAsync(spec).Result;
 
-            //// Act
+            // Act
             var generator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains(
                 "urlBuilder_.Append(System.Uri.EscapeDataString(\"page\") + \"=\").Append(System.Uri.EscapeDataString(ConvertToString(paging.Page, System.Globalization.CultureInfo.InvariantCulture))).Append(\"&\");",
                 code);
@@ -132,11 +132,11 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = OpenApiDocument.FromJsonAsync(spec).Result;
 
-            //// Act
+            // Act
             var generator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.DoesNotContain(
                 "urlBuilder_.Append(System.Uri.EscapeDataString(\"extendedProperties\") + \"=\").Append(System.Uri.EscapeDataString(ConvertToString(extendedProperties, System.Globalization.CultureInfo.InvariantCulture))).Append(\"&\");",
                 code);
@@ -200,11 +200,11 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = OpenApiDocument.FromJsonAsync(spec).Result;
 
-            //// Act
+            // Act
             var generator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.DoesNotContain(
                 "urlBuilder_.Append(System.Uri.EscapeDataString(\"extendedProperties\") + \"=\").Append(System.Uri.EscapeDataString(ConvertToString(extendedProperties, System.Globalization.CultureInfo.InvariantCulture))).Append(\"&\");",
                 code);
@@ -283,11 +283,11 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = OpenApiDocument.FromJsonAsync(spec).Result;
 
-            //// Act
+            // Act
             var generator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.DoesNotContain(
                 "urlBuilder_.Append(System.Uri.EscapeDataString(\"extendedProperties\") + \"=\").Append(System.Uri.EscapeDataString(ConvertToString(extendedProperties, System.Globalization.CultureInfo.InvariantCulture))).Append(\"&\");",
                 code);

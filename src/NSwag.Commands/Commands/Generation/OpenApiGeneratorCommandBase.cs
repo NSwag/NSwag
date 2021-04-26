@@ -244,7 +244,7 @@ namespace NSwag.Commands.Generation
             return Settings;
         }
 
-        protected async Task<IDisposable> CreateWebHostAsync(AssemblyLoader.AssemblyLoader assemblyLoader)
+        protected Task<IDisposable> CreateWebHostAsync(AssemblyLoader.AssemblyLoader assemblyLoader)
         {
             if (!string.IsNullOrEmpty(CreateWebHostBuilderMethod))
             {
@@ -255,18 +255,17 @@ namespace NSwag.Commands.Generation
                 var programType = assemblyLoader.GetType(programTypeName) ??
                     throw new InvalidOperationException("The Program class could not be determined.");
 
-                var methodName = segments.Last();
                 var method = programType.GetRuntimeMethod(segments.Last(), new[] { typeof(string[]) });
                 if (method != null)
                 {
-                    return ((IWebHostBuilder)method.Invoke(null, new object[] { new string[0] })).Build();
+                    return Task.FromResult<IDisposable>(((IWebHostBuilder)method.Invoke(null, new object[] { new string[0] })).Build());
                 }
                 else
                 {
                     method = programType.GetRuntimeMethod(segments.Last(), new Type[0]);
                     if (method != null)
                     {
-                        return ((IWebHostBuilder)method.Invoke(null, new object[0])).Build();
+                        return Task.FromResult<IDisposable>(((IWebHostBuilder)method.Invoke(null, new object[0])).Build());
                     }
                     else
                     {
@@ -278,7 +277,7 @@ namespace NSwag.Commands.Generation
             {
                 // Load configured startup type (obsolete)
                 var startupType = assemblyLoader.GetType(StartupType);
-                return WebHost.CreateDefaultBuilder().UseStartup(startupType).Build();
+                return Task.FromResult<IDisposable>(WebHost.CreateDefaultBuilder().UseStartup(startupType).Build());
             }
             else
             {
@@ -297,8 +296,8 @@ namespace NSwag.Commands.Generation
 
                     if (method != null)
                     {
-                        return ((IWebHostBuilder)method.Invoke(
-                            null, method.GetParameters().Length > 0 ? new object[] { new string[0] } : new object[0])).Build();
+                        return Task.FromResult<IDisposable>(((IWebHostBuilder)method.Invoke(
+                            null, method.GetParameters().Length > 0 ? new object[] { new string[0] } : new object[0])).Build());
                     }
                     else
                     {
@@ -309,8 +308,8 @@ namespace NSwag.Commands.Generation
 
                         if (method != null)
                         {
-                            return ((Microsoft.Extensions.Hosting.IHostBuilder)method.Invoke(
-                                null, method.GetParameters().Length > 0 ? new object[] { new string[0] } : new object[0])).Build();
+                            return Task.FromResult<IDisposable>(((Microsoft.Extensions.Hosting.IHostBuilder)method.Invoke(
+                                null, method.GetParameters().Length > 0 ? new object[] { new string[0] } : new object[0])).Build());
                         }
                         else
 #endif
@@ -331,7 +330,7 @@ namespace NSwag.Commands.Generation
                         throw new InvalidOperationException("The Startup class could not be determined in the assembly '" + firstAssembly.FullName + "'.");
                     }
 
-                    return WebHost.CreateDefaultBuilder().UseStartup(startupType).Build();
+                    return Task.FromResult<IDisposable>(WebHost.CreateDefaultBuilder().UseStartup(startupType).Build());
                 }
             }
         }

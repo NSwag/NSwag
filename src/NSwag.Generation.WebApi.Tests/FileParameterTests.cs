@@ -41,14 +41,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_parameter_is_from_uri_and_has_file_then_two_params_and_consumes_is_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(FromUriFileParameterController));
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             var operation = document.Paths["/upload"][OpenApiOperationMethod.Post];
 
             Assert.AreEqual(JsonObjectType.File, operation.ActualParameters.Single(p => p.Name == "formFile").Type);
@@ -73,13 +73,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_parameter_is_file_collection_then_type_is_correct_and_collection_format_is_multi()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(FileCollectionController));
 
-            //// Assert
+            // Assert
             var operation = document.Paths["/upload"][OpenApiOperationMethod.Post];
             var parameter = operation.ActualParameters.Single(p => p.Name == "files");
 
@@ -102,14 +102,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_body_parameter_is_Stream_then_consumes_is_octet_()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<StreamBodyParameterController>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             var operation = document.Paths["/upload"][OpenApiOperationMethod.Post];
             var parameter = operation.ActualParameters.Single(p => p.Name == "data");
 

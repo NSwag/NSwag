@@ -32,7 +32,7 @@ namespace NSwag.AspNetCore
     public abstract class SwaggerUiSettingsBase : SwaggerSettings
 #endif
     {
-        /// <summary>Initializes a new instance of the <see cref="SwaggerUiSettingsBase"/> class.</summary>
+        /// <summary>Initializes a new instance of the class.</summary>
         public SwaggerUiSettingsBase()
         {
             TransformToExternalPath = (internalUiRoute, request) =>

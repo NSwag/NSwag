@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using NJsonSchema;
+﻿using NJsonSchema;
 using Xunit;
 
 namespace NSwag.Core.Tests.Serialization
@@ -7,9 +6,9 @@ namespace NSwag.Core.Tests.Serialization
     public class CallbacksSerializationTests
     {
         [Fact]
-        public async Task When_callbacks_are_defined_then_they_are_serialized_in_OpenApi()
+        public void When_callbacks_are_defined_then_they_are_serialized_in_OpenApi()
         {
-            //// Arrange
+            // Arrange
             var document = new OpenApiDocument
             {
                 Paths =
@@ -51,10 +50,10 @@ namespace NSwag.Core.Tests.Serialization
                 }
             };
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.OpenApi3);
 
-            //// Assert
+            // Assert
             Assert.Contains(@"""bar""", json);
         }
     }

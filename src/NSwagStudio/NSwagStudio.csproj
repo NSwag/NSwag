@@ -19,6 +19,8 @@
     <RuntimeIdentifiers>win</RuntimeIdentifiers>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <!-- obsolete usage -->
+    <NoWarn>$(NoWarn),618</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -298,13 +300,13 @@
     <PackageReference Include="AvalonEdit" Version="5.0.3" />
     <PackageReference Include="DotLiquid" Version="2.0.385" />
     <PackageReference Include="Expression.Interaction" Version="3.0.40218" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
     <PackageReference Include="MyToolkit" Version="2.5.16" />
     <PackageReference Include="MyToolkit.Extended" Version="2.5.16" />
     <PackageReference Include="Namotion.Reflection" Version="1.0.19" />
     <PackageReference Include="NConsole" Version="3.9.6519.30868" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NJsonSchema" Version="10.4.1" />
     <PackageReference Include="NJsonSchema.CodeGeneration" Version="10.4.1" />
     <PackageReference Include="NJsonSchema.CodeGeneration.CSharp" Version="10.4.1" />

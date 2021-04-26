@@ -8,13 +8,13 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public void When_security_schema_is_defined_as_Swagger_and_serialized_as_Swagger_then_it_is_correct()
         {
-            //// Arrange
+            // Arrange
             var document = CreateSwaggerDocument();
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.Swagger2);
 
-            //// Assert
+            // Assert
             Assert.Contains(@"""type"": ""basic""", json);
             Assert.Contains(@"""authorizationUrl"": ""AuthUrl""", json);
             Assert.DoesNotContain(@"""flows""", json);
@@ -23,13 +23,13 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public void When_security_schema_is_defined_as_Swagger_and_serialized_as_OpenApi_then_it_is_correct()
         {
-            //// Arrange
+            // Arrange
             var document = CreateSwaggerDocument();
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.OpenApi3);
 
-            //// Assert
+            // Assert
             Assert.Contains(@"""type"": ""http""", json);
             Assert.Contains(@"""scheme"": ""basic""", json);
             Assert.Contains(@"""authorizationUrl"": ""AuthUrl""", json);
@@ -40,13 +40,13 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public void When_security_schema_is_defined_as_OpenApi_and_serialized_as_Swagger_then_it_is_correct()
         {
-            //// Arrange
+            // Arrange
             var document = CreateOpenApiDocument();
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.Swagger2);
 
-            //// Assert
+            // Assert
             Assert.Contains(@"""type"": ""basic""", json);
             Assert.Contains(@"""authorizationUrl"": ""AuthUrl""", json);
             Assert.DoesNotContain(@"""flows""", json);
@@ -55,13 +55,13 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public void When_security_schema_is_defined_as_OpenApi_and_serialized_as_OpenApi_then_it_is_correct()
         {
-            //// Arrange
+            // Arrange
             var document = CreateOpenApiDocument();
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.OpenApi3);
 
-            //// Assert
+            // Assert
             Assert.Contains(@"""type"": ""http""", json);
             Assert.Contains(@"""scheme"": ""basic""", json);
             Assert.Contains(@"""refreshUrl"": ""RefreshUrl""", json);

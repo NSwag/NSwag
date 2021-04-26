@@ -16,7 +16,7 @@ namespace NSwag.Generation.AspNetCore.Tests
             // Act
             var document = await GenerateDocumentAsync(settings, typeof(SwaggerExtensionDataController));
 
-            //// Assert
+            // Assert
             Assert.Equal(2, document.ExtensionData.Count);
 
             Assert.Equal("b", document.ExtensionData["a"]);
@@ -32,7 +32,7 @@ namespace NSwag.Generation.AspNetCore.Tests
             // Act
             var document = await GenerateDocumentAsync(settings, typeof(SwaggerExtensionDataController));
 
-            //// Assert
+            // Assert
             var extensionData = document.Operations.First().Operation.ExtensionData;
             Assert.Equal(2, extensionData.Count);
 

@@ -9,14 +9,14 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public async Task When_schema_is_added_to_definitions_then_it_is_serialized_correctly_in_Swagger()
         {
-            //// Arrange
+            // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.Swagger2);
             document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Assert
+            // Assert
             Assert.Contains(@"""swagger""", json);
             Assert.DoesNotContain(@"""openapi""", json);
 
@@ -29,14 +29,14 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public async Task When_schema_is_added_to_definitions_then_it_is_serialized_correctly_in_OpenApi()
         {
-            //// Arrange
+            // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.OpenApi3);
             document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Assert
+            // Assert
             Assert.DoesNotContain(@"""swagger""", json);
             Assert.Contains(@"""openapi""", json);
 

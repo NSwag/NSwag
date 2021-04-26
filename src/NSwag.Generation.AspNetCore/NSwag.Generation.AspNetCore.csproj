@@ -1,31 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net451;netstandard2.0;netcoreapp3.1;net5.0</TargetFrameworks>
-    <Description>NSwag: The OpenAPI/Swagger API toolchain for .NET and TypeScript</Description>
     <Version>13.10.9</Version>
     <PackageTags>Swagger Documentation AspNetCore</PackageTags>
-    <Copyright>Copyright © Rico Suter, 2020</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>http://NSwag.org</PackageProjectUrl>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>../NSwag.snk</AssemblyOriginatorKeyFile>
-    <Authors>Rico Suter</Authors>
-    <PackageIcon>NuGetIcon.png</PackageIcon>
-    <Company />
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/RicoSuter/NSwag.git</RepositoryUrl>
     <DefineConstants>$(DefineConstants);ASPNETCORE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>$(DefineConstants);TRACE;DEBUG</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\..\assets\NuGetIcon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NJsonSchema" Version="10.4.1" />
   </ItemGroup>
@@ -50,6 +34,7 @@
     <PackageReference Include="Microsoft.Extensions.Options" Version="[5, 6)" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NSwag.Annotations\NSwag.Annotations.csproj" />
     <ProjectReference Include="..\NSwag.Generation\NSwag.Generation.csproj" />
   </ItemGroup>
 </Project>

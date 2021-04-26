@@ -8,30 +8,30 @@ namespace NSwag.Core.Tests.Serialization
     public class ExampleSerializationTests
     {
         [Fact]
-        public async Task When_document_has_response_examples_then_it_is_serialized_in_Swagger()
+        public void When_document_has_response_examples_then_it_is_serialized_in_Swagger()
         {
-            //// Arrange
+            // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.Swagger2);
 
-            //// Assert
+            // Assert
             Assert.Contains(@"""examples"": 1", json); // response examples
             Assert.Contains(@"""example"": 2", json); // parameter example
             Assert.DoesNotContain(@"""ParameterExamples""", json); // parameter examples
         }
 
         [Fact]
-        public async Task When_document_has_response_examples_then_it_is_not_serialized_in_OpenApi()
+        public void When_document_has_response_examples_then_it_is_not_serialized_in_OpenApi()
         {
-            //// Arrange
+            // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.OpenApi3);
 
-            //// Assert
+            // Assert
             Assert.DoesNotContain(@"""examples"": 1", json); // response examples
             Assert.Contains(@"""example"": 2", json); // parameter example
             Assert.Contains(@"""ParameterExamples""", json); // parameter examples

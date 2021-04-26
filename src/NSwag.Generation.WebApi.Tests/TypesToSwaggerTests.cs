@@ -17,14 +17,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public void When_generating_multiple_types_then_they_are_appended_to_the_definitions()
         {
-            //// Arrange
+            // Arrange
             var classNames = new[]
             {
                 "NSwag.Generation.WebApi.Tests.B",
                 "NSwag.Generation.WebApi.Tests.C"
             };
 
-            //// Act
+            // Act
             var document = new OpenApiDocument();
             var settings = new JsonSchemaGeneratorSettings();
             var schemaResolver = new OpenApiSchemaResolver(document, settings);
@@ -36,7 +36,7 @@ namespace NSwag.Generation.WebApi.Tests
             }
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.IsNotNull(json);
             Assert.AreEqual(2, document.Definitions.Count);
         }
