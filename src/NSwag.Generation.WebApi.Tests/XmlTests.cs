@@ -22,14 +22,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_FromBody_and_xml_document_then_consumes_is_xml()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<MyXmlController>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             var operation = document.Operations.First().Operation;
             Assert.AreEqual("application/xml", operation.Consumes[0]);
             Assert.AreEqual(JsonObjectType.String, operation.Parameters.First().Schema.ActualSchema.Type);
@@ -38,15 +38,15 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_body_is_xml_then_correct_csharp_is_generated()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllerAsync<MyXmlController>();
 
-            //// Act
+            // Act
             var gen = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = gen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(code.Contains("(string xmlDocument, "));
             Assert.IsTrue(code.Contains("var content_ = new System.Net.Http.StringContent(xmlDocument);"));
             Assert.IsTrue(code.Contains("content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(\"application/xml\");"));
@@ -55,18 +55,18 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_body_is_xml_then_correct_TypeScript_is_generated()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllerAsync<MyXmlController>();
 
             var settings = new TypeScriptClientGeneratorSettings { Template = TypeScriptTemplate.JQueryCallbacks };
             settings.TypeScriptGeneratorSettings.TypeScriptVersion = 1.8m;
 
-            //// Act
+            // Act
             var gen = new TypeScriptClientGenerator(document, settings);
             var code = gen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(code.Contains("(xmlDocument: string, "));
             Assert.IsTrue(code.Contains("const content_ = xmlDocument;"));
             Assert.IsTrue(code.Contains("\"Content-Type\": \"application/xml\""));

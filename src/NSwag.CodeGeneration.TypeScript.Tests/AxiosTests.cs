@@ -32,12 +32,12 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
         [Fact]
         public async Task When_export_types_is_true_then_add_export_before_classes()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllerAsync<DiscussionController>();
             var json = document.ToJson();
 
-            //// Act
+            // Act
             var codeGen = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
             {
                 Template = TypeScriptTemplate.Axios,
@@ -50,7 +50,7 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
             });
             var code = codeGen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("export class DiscussionClient", code);
             Assert.Contains("export interface IDiscussionClient", code);
         }
@@ -58,12 +58,12 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
         [Fact]
         public async Task When_export_types_is_false_then_dont_add_export_before_classes()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllerAsync<DiscussionController>();
             var json = document.ToJson();
 
-            //// Act
+            // Act
             var codeGen = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
             {
                 Template = TypeScriptTemplate.Axios,
@@ -76,7 +76,7 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
             });
             var code = codeGen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.DoesNotContain("export class DiscussionClient", code);
             Assert.DoesNotContain("export interface IDiscussionClient", code);
         }
@@ -84,12 +84,12 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
         [Fact]
         public async Task When_consumes_is_url_encoded_then_construct_url_encoded_request()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllerAsync<UrlEncodedRequestConsumingController>();
             var json = document.ToJson();
 
-            //// Act
+            // Act
             var codeGen = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
             {
                 Template = TypeScriptTemplate.Axios,
@@ -100,7 +100,7 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
             });
             var code = codeGen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("content_", code);
             Assert.DoesNotContain("FormData", code);
             Assert.Contains("\"Content-Type\": \"application/x-www-form-urlencoded\"", code);
@@ -109,12 +109,12 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
         [Fact]
         public async Task Add_cancel_token_to_every_call()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllerAsync<UrlEncodedRequestConsumingController>();
             var json = document.ToJson();
 
-            //// Act
+            // Act
             var codeGen = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
             {
                 Template = TypeScriptTemplate.Axios,
@@ -125,7 +125,7 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
             });
             var code = codeGen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("cancelToken?: CancelToken | undefined", code);
         }
     }

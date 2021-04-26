@@ -15,13 +15,13 @@ namespace NSwag.Integration.ClientPCL.Tests
         [TestCategory("integration")]
         public async Task GetAll_SerializationTest()
         {
-            //// Arrange
+            // Arrange
             var personsClient = new PersonsClient(new HttpClient()) { BaseUrl = "http://localhost:13452" }; ;
 
-            //// Act
+            // Act
             var persons = await personsClient.GetAllAsync();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(2, persons.Result.Count);
             Assert.IsTrue(persons.Result.ToList()[0].GetType() == typeof(Person));
             Assert.IsTrue(persons.Result.ToList()[1].GetType() == typeof(Teacher));
@@ -31,26 +31,26 @@ namespace NSwag.Integration.ClientPCL.Tests
         [TestCategory("integration")]
         public async Task AddXml_PostXml()
         {
-            //// Arrange
+            // Arrange
             var personsClient = new PersonsClient(new HttpClient()) { BaseUrl = "http://localhost:13452" }; ;
 
-            //// Act
+            // Act
             var result = await personsClient.AddXmlAsync("<Rico>Suter</Rico>");
 
-            //// Assert
+            // Assert
         }
 
         [TestMethod]
         [TestCategory("integration")]
         public async Task GetAll_InheritanceTest()
         {
-            //// Arrange
+            // Arrange
             var personsClient = new PersonsClient(new HttpClient()) { BaseUrl = "http://localhost:13452" };
 
-            //// Act
+            // Act
             var persons = await personsClient.GetAllAsync();
 
-            //// Assert
+            // Assert
             Assert.AreEqual("SE", ((Teacher)persons.Result.ToList()[1]).Course); // inheritance test
         }
 
@@ -58,18 +58,18 @@ namespace NSwag.Integration.ClientPCL.Tests
         [TestCategory("integration")]
         public async Task Throw()
         {
-            //// Arrange
+            // Arrange
             var id = Guid.NewGuid();
             var personsClient = new PersonsClient(new HttpClient()) { BaseUrl = "http://localhost:13452" };
 
-            //// Act
+            // Act
             try
             {
                 var persons = await personsClient.ThrowAsync(id);
             }
             catch (PersonsClientException<PersonNotFoundException> exception)
             {
-                //// Assert
+                // Assert
                 Assert.AreEqual(id, exception.Result.Id);
             }
         }
@@ -78,13 +78,13 @@ namespace NSwag.Integration.ClientPCL.Tests
         [TestCategory("integration")]
         public async Task Get_should_return_teacher()
         {
-            //// Arrange
+            // Arrange
             var personsClient = new PersonsClient(new HttpClient()) { BaseUrl = "http://localhost:13452" }; ;
 
-            //// Act
+            // Act
             var result = await personsClient.GetAsync(new Guid());
 
-            //// Assert
+            // Assert
             Assert.IsTrue(result.Result is Teacher);
         }
 
@@ -92,14 +92,14 @@ namespace NSwag.Integration.ClientPCL.Tests
         //[TestCategory("integration")]
         public async Task Binary_body()
         {
-            //// Arrange
+            // Arrange
             var personsClient = new PersonsClient(new HttpClient()) { BaseUrl = "http://localhost:13452" }; ;
 
-            //// Act
+            // Act
             var stream = new MemoryStream(new byte[] { 1, 2, 3 });
             var result = await personsClient.UploadAsync(new FileParameter(stream));
 
-            //// Assert
+            // Assert
             Assert.AreEqual(3, result.Result.Length);
             Assert.AreEqual(1, result.Result[0]);
             Assert.AreEqual(2, result.Result[1]);

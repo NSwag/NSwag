@@ -33,7 +33,7 @@ namespace NSwag.AspNetCore
     public class SwaggerUi3Settings : SwaggerUiSettingsBase
 #endif
     {
-        /// <summary>Initializes a new instance of the <see cref="SwaggerUi3Settings"/> class.</summary>
+        /// <summary>Initializes a new instance of the class.</summary>
         public SwaggerUi3Settings()
         {
             DocExpansion = "none";

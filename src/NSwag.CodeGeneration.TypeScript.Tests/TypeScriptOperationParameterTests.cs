@@ -29,7 +29,7 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
         [Fact]
         public async Task When_parameter_is_nullable_and_ts20_then_it_is_a_union_type_with_undefined()
         {
-            //// Arrange
+            // Arrange
             var swaggerGenerator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await swaggerGenerator.GenerateForControllerAsync<NullableParameterController>();
             var clientGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
@@ -43,17 +43,17 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
 
             var json = document.ToJson();
 
-            //// Act
+            // Act
             var code = clientGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("test(a: number, b: number | null)", code);
         }
 
         [Fact]
         public async Task When_parameter_is_nullable_and_ts20_then_it_is_not_included_in_query_string()
         {
-            //// Arrange
+            // Arrange
             var swaggerGenerator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await swaggerGenerator.GenerateForControllerAsync<NullableParameterController>();
             var clientGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
@@ -67,17 +67,17 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
 
             var json = document.ToJson();
 
-            //// Act
+            // Act
             var code = clientGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("else if(b !== null)", code);
         }
 
         [Fact]
         public async Task When_parameter_is_nullable_optional_and_ts20_then_it_is_a_union_type_with_undefined()
         {
-            //// Arrange
+            // Arrange
             var swaggerGenerator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await swaggerGenerator.GenerateForControllerAsync<NullableOptionalParameterController>();
             var clientGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
@@ -91,17 +91,17 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
 
             var json = document.ToJson();
 
-            //// Act
+            // Act
             var code = clientGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("test(a: number, b: number | null | undefined)", code);
         }
 
         [Fact]
         public async Task When_parameter_is_nullable_optional_and_ts20_then_it_is_not_included_in_query_string()
         {
-            //// Arrange
+            // Arrange
             var swaggerGenerator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await swaggerGenerator.GenerateForControllerAsync<NullableOptionalParameterController>();
             var clientGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
@@ -115,10 +115,10 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
 
             var json = document.ToJson();
 
-            //// Act
+            // Act
             var code = clientGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("if (b !== undefined && b !== null)", code);
         }
     }

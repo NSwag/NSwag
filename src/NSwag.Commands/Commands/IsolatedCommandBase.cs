@@ -56,7 +56,7 @@ namespace NSwag.Commands
                 ReferencePaths = ReferencePaths.Concat(defaultNugetPackages).ToArray();
             }
 
-            using (var isolated = new AppDomainIsolation<IsolatedCommandAssemblyLoader<TResult>>(assemblyDirectory, AssemblyConfig, bindingRedirects, assemblies))
+            using (var isolated = new AppDomainIsolation<IsolatedCommandAssemblyLoader>(assemblyDirectory, AssemblyConfig, bindingRedirects, assemblies))
             {
                 return await Task.Run(() => isolated.Object.Run(GetType().FullName, JsonConvert.SerializeObject(this), AssemblyPaths, ReferencePaths)).ConfigureAwait(false);
             }
@@ -64,7 +64,7 @@ namespace NSwag.Commands
 
         protected abstract Task<TResult> RunIsolatedAsync(AssemblyLoader.AssemblyLoader assemblyLoader);
 
-        private class IsolatedCommandAssemblyLoader<TResult> : AssemblyLoader.AssemblyLoader
+        private class IsolatedCommandAssemblyLoader : AssemblyLoader.AssemblyLoader
         {
             internal TResult Run(string commandType, string commandData, string[] assemblyPaths, string[] referencePaths)
             {

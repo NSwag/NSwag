@@ -38,56 +38,56 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_accept_verbs_attribute_with_post_is_used_then_http_method_is_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.First(o => o.Operation.OperationId == "Test_AddPost");
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiOperationMethod.Post, operation.Method);
         }
 
         [TestMethod]
         public async Task When_accept_verbs_attribute_with_get_is_used_then_http_method_is_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.First(o => o.Operation.OperationId == "Test_AddGet");
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiOperationMethod.Get, operation.Method);
         }
 
         [TestMethod]
         public async Task When_accept_verbs_attribute_with_delete_is_used_then_http_method_is_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.First(o => o.Operation.OperationId == "Test_AddDelete");
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiOperationMethod.Delete, operation.Method);
         }
 
         [TestMethod]
         public async Task When_accept_verbs_attribute_with_put_is_used_then_http_method_is_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.First(o => o.Operation.OperationId == "Test_AddPut");
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiOperationMethod.Put, operation.Method);
         }
     }

@@ -30,34 +30,34 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_primitive_then_it_is_a_path_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithoutAttribute").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Path, operation.ActualParameters[0].Kind);
         }
 
         [TestMethod]
         public async Task When_parameter_is_primitive_and_has_FromUri_then_it_is_a_path_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithFromUriAttribute").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Path, operation.ActualParameters[0].Kind);
         }
 
@@ -65,17 +65,17 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_primitive_and_has_FromBody_then_it_is_a_path_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}"
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var operation = document.Operations.Single(o => o.Operation.OperationId == "Test_WithFromBodyAttribute").Operation;
 
-            //// Assert
+            // Assert
             Assert.AreEqual(OpenApiParameterKind.Path, operation.ActualParameters[0].Kind); // TODO: What is correct?
         }
 
@@ -94,17 +94,17 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_route_has_path_parameter_which_is_not_an_action_parameter_then_it_is_still_added_as_path_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultUrlTemplate = "api/{controller}/{action}/{id}", 
                 AddMissingPathParameters = true
             });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<RoutePrefixWithPathsController>();
             
-            //// Assert
+            // Assert
             var operation = document.Operations.First().Operation;
             var parameter = operation.Parameters.Single(p => p.Name == "companyIdentifier");
 

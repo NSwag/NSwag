@@ -105,7 +105,7 @@ namespace NSwag.Commands.Generation
             set { Settings.GenerateXmlObjects = value; }
         }
 
-        protected override async Task<string> RunIsolatedAsync(AssemblyLoader.AssemblyLoader assemblyLoader)
+        protected override Task<string> RunIsolatedAsync(AssemblyLoader.AssemblyLoader assemblyLoader)
         {
             var document = new OpenApiDocument();
             var generator = new JsonSchemaGenerator(Settings);
@@ -131,7 +131,7 @@ namespace NSwag.Commands.Generation
                 generator.Generate(type, schemaResolver);
             }
 
-            return document.ToJson(OutputType);
+            return Task.FromResult(document.ToJson(OutputType));
         }
     }
 }

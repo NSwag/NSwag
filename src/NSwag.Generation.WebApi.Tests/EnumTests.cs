@@ -43,7 +43,7 @@ namespace NSwag.Generation.WebApi.Tests
             // Arrange
             var apiGenerator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await apiGenerator.GenerateForControllerAsync<MyController>();
             var json = document.ToJson();
 
@@ -72,7 +72,7 @@ namespace NSwag.Generation.WebApi.Tests
             // Arrange
             var apiGenerator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await apiGenerator.GenerateForControllerAsync<MyEnumResultController>();
             var json = document.ToJson();
 

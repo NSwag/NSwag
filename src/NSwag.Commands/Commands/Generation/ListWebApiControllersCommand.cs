@@ -52,20 +52,22 @@ namespace NSwag.Commands.Generation
             return classNames;
         }
 
-        protected override async Task<string[]> RunIsolatedAsync(AssemblyLoader.AssemblyLoader assemblyLoader)
+        protected override Task<string[]> RunIsolatedAsync(AssemblyLoader.AssemblyLoader assemblyLoader)
         {
 #if FullNet
-            return PathUtilities.ExpandFileWildcards(AssemblyPaths)
+            var result = PathUtilities.ExpandFileWildcards(AssemblyPaths)
                 .Select(Assembly.LoadFrom)
 #else
             var currentDirectory = DynamicApis.DirectoryGetCurrentDirectory();
-            return PathUtilities.ExpandFileWildcards(AssemblyPaths)
+            var result = PathUtilities.ExpandFileWildcards(AssemblyPaths)
                 .Select(p => assemblyLoader.Context.LoadFromAssemblyPath(PathUtilities.MakeAbsolutePath(p, currentDirectory)))
 #endif
                 .SelectMany(WebApiOpenApiDocumentGenerator.GetControllerClasses)
                 .Select(t => t.FullName)
                 .OrderBy(c => c)
                 .ToArray();
+
+            return Task.FromResult(result);
         }
     }
 }

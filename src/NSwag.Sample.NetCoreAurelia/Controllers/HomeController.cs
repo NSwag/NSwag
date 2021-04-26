@@ -3,7 +3,7 @@ using NSwag.Annotations;
 
 namespace NSwag_Sample_NetCoreAurelia.Controllers
 {
-    [SwaggerIgnore]
+    [OpenApiIgnore]
     public class HomeController : Controller
     {
         public IActionResult Index()

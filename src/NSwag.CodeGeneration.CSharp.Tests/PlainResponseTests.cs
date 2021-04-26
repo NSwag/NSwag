@@ -39,14 +39,14 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 }";
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings
             {
                 GenerateClientInterfaces = true
             });
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("public async System.Threading.Tasks.Task<string> PlainAsync(", code);
         }
 
@@ -76,14 +76,14 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 }";
             var document = await OpenApiDocument.FromJsonAsync(swagger);
 
-            //// Act
+            // Act
             var codeGenerator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings
             {
                 GenerateClientInterfaces = true
             });
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("public async System.Threading.Tasks.Task<string> PlainAsync(", code);
         }
     }

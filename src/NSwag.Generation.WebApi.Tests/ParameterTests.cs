@@ -55,13 +55,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_parameter_is_from_uri_then_two_params_are_generated()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(FromUriParameterController));
 
-            //// Assert
+            // Assert
             var operation = document.Paths["/upload"][OpenApiOperationMethod.Post];
 
             Assert.AreEqual(JsonObjectType.String, operation.ActualParameters.Single(p => p.Name == "Foo").Type);
@@ -76,13 +76,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_path_parameter_embedded_in_ComplexType_from_uri_then_path_param_is_generated()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(FromUriParameterController));
 
-            //// Assert
+            // Assert
             var operation = document.Paths["/fetch/{id}"][OpenApiOperationMethod.Get];
             var parameter = operation.ActualParameters.Single(p => p.Name == "Id");
 
@@ -95,13 +95,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_parameters_are_from_uri_then_query_params_are_generated()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(FromUriParameterController));
 
-            //// Assert
+            // Assert
             var operation = document.Paths["/fetch-all"][OpenApiOperationMethod.Get];
 
             Assert.AreEqual(JsonObjectType.String, operation.ActualParameters.Single(p => p.Name == "Foo").Type);
@@ -125,13 +125,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_web_api_path_has_constraints_then_they_are_removed_in_the_swagger_spec()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(ConstrainedRoutePathController));
 
-            //// Assert
+            // Assert
             var path = document.Paths.First().Key;
 
             Assert.AreEqual("/{id}", path);
@@ -153,34 +153,34 @@ namespace NSwag.Generation.WebApi.Tests
             }
 
             [HttpPost]
-            public async Task<IHttpActionResult> Post([FromBody] object model)
+            public Task<IHttpActionResult> Post([FromBody] object model)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
 
             [HttpPost]
-            public async Task<IHttpActionResult> Verify([FromBody] object model)
+            public Task<IHttpActionResult> Verify([FromBody] object model)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
 
             [HttpPost]
-            public async Task<IHttpActionResult> Confirm([FromBody] object model)
+            public Task<IHttpActionResult> Confirm([FromBody] object model)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
         }
 
         [TestMethod]
         public async Task When_class_has_RouteAttribute_with_placeholders_then_they_are_correctly_replaced()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(AccountController));
 
-            //// Assert
+            // Assert
             Assert.IsTrue(document.Paths.ContainsKey("/account/Get"));
             Assert.IsTrue(document.Paths.ContainsKey("/account/GetAll"));
             Assert.IsTrue(document.Paths.ContainsKey("/account/Post"));
@@ -209,14 +209,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_FromUri_has_name_then_parameter_name_is_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(MyApiController));
             var json = document.ToJson();
 
-            //// Assert 
+            // Assert
             Assert.IsTrue(document.Paths.ContainsKey("/api/{id1}/Services"));
             Assert.IsTrue(document.Paths.ContainsKey("/api/{id1}/Services/{id2}"));
         }
@@ -235,14 +235,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_parameter_has_JsonSchemaTypeAttribute_then_it_is_processed()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync(typeof(MyControllerWithJsonSchemaTypeParameter));
             var json = document.ToJson();
 
-            //// Assert 
+            // Assert
             var parameter = document.Operations.First().Operation.ActualParameters.First().ActualParameter;
             Assert.IsTrue(parameter.ActualTypeSchema.Type.HasFlag(JsonObjectType.Integer));
         }

@@ -81,7 +81,7 @@ namespace NSwag.CodeGeneration
         /// <summary>Gets or sets the output file name, used to detect changes.</summary>
         public string OutputFilePath { get; set; }
 
-        /// <summary>Gets or sets whether checksum based output caching can be used.
+        /// <summary>Gets or sets whether checksum based output caching can be used.</summary>
         public bool ChecksumCacheEnabled { get; set; }
     }
 }

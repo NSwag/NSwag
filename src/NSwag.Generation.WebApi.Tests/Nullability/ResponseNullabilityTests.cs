@@ -41,16 +41,16 @@ namespace NSwag.Generation.WebApi.Tests.Nullability
         [TestMethod]
         public async Task When_response_is_not_nullable_then_nullable_is_false_in_spec()
         {
-            /// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings
             {
                 DefaultResponseReferenceTypeNullHandling = ReferenceTypeNullHandling.Null
             });
 
-            /// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<NotNullResponseTestController>();
 
-            /// Assert
+            // Assert
             var operationAbc = document.Operations.Single(o => o.Path.Contains("Abc"));
             var responseAbc = operationAbc.Operation.ActualResponses.First().Value;
 

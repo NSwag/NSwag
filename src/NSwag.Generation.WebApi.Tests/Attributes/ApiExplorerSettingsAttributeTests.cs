@@ -28,14 +28,14 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_action_has_ApiExplorerSettingsAttribute_with_IgnoreApi_then_it_is_ignored()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings { IsAspNetCore = true });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(1, document.Operations.Count());
             Assert.AreEqual("Test_Foo", document.Operations.Single().Operation.OperationId);
         }
@@ -48,12 +48,12 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public void When_controller_has_ApiExplorerSettingsAttribute_with_IgnoreApi_then_it_is_ignored()
         {
-            //// Arrange
+            // Arrange
 
-            //// Act
+            // Act
             var controllers = WebApiOpenApiDocumentGenerator.GetControllerClasses(typeof(ApiExplorerIgnoredController).Assembly);
 
-            //// Assert
+            // Assert
             Assert.IsFalse(controllers.Any(c => c.Name == "ApiExplorerIgnoredController"));
         }
     }

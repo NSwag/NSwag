@@ -9,7 +9,7 @@ namespace NSwag.Core.Tests
         [Fact]
         public async Task When_response_is_referenced_then_it_should_be_resolved()
         {
-            //// Arrange
+            // Arrange
             var json = @"
 {
   ""swagger"": ""2.0"",
@@ -37,11 +37,11 @@ namespace NSwag.Core.Tests
   }
 }";
 
-            //// Act
+            // Act
             var document = await OpenApiDocument.FromJsonAsync(json);
             json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.NotNull(document);
             Assert.NotNull(document.Operations.First().Operation.ActualResponses["500"].Schema);
 
@@ -51,7 +51,7 @@ namespace NSwag.Core.Tests
         [Fact]
         public async Task When_parameter_is_referenced_then_it_should_be_resolved()
         {
-            //// Arrange
+            // Arrange
             var json = @"
 {
   ""swagger"": ""2.0"",
@@ -80,11 +80,11 @@ namespace NSwag.Core.Tests
   }
 }";
 
-            //// Act
+            // Act
             var document = await OpenApiDocument.FromJsonAsync(json);
             json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.Equal("foo", document.Operations.First().Operation.ActualParameters.First().Name);
             Assert.Contains(@"""$ref"": ""#/parameters/Foo""", json);
         }
@@ -92,7 +92,7 @@ namespace NSwag.Core.Tests
         [Fact]
         public async Task When_parameter_references_schema_then_it_is_resolved()
         {
-            //// Arrange
+            // Arrange
             var json = @"{
   ""openapi"": ""3.0.0"",
   ""servers"": [
@@ -136,18 +136,18 @@ namespace NSwag.Core.Tests
   }
 }";
 
-            //// Act
+            // Act
             var document = await OpenApiDocument.FromJsonAsync(json);
             json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.Equal("secret", document.Operations.First().Operation.ActualParameters.First().ActualSchema.Format);
         }
 
         [Fact]
         public async Task When_referencing_example_then_read_and_write_should_work()
         {
-            //// Arrange
+            // Arrange
             var json = @"{
   ""openapi"": ""3.0.1"",
   ""paths"": {
@@ -198,11 +198,11 @@ namespace NSwag.Core.Tests
   }
 }";
 
-            //// Act
+            // Act
             var document = await OpenApiDocument.FromJsonAsync(json);
             json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.NotNull(json);
         }
     }

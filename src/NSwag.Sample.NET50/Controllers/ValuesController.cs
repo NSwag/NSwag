@@ -10,11 +10,11 @@ namespace NSwag.Sample.NET50.Controllers
     {
         public class Person
         {
-            public string FirstName { get; set; }
+            public string FirstName { get; set; } = "";
 
             public string? MiddleName { get; set; }
 
-            public string LastName { get; set; }
+            public string LastName { get; set; } = "";
 
             public DateTime DayOfBirth { get; set; }
         }

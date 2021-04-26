@@ -8,7 +8,7 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
         [Fact]
         public async Task When_parameter_is_array_then_TypeScript_is_correct()
         {
-            //// Arrange
+            // Arrange
             var swagger = @"{
   ""swagger"" : ""2.0"",
   ""info"" : {
@@ -60,12 +60,12 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
 ";
             var document = await OpenApiDocument.FromJsonAsync(swagger);
 
-            //// Act
+            // Act
             var settings = new TypeScriptClientGeneratorSettings { ClassName = "MyClass" };
             var generator = new TypeScriptClientGenerator(document, settings);
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains(@"elementId.forEach(item => { url_ += ""elementId="" + encodeURIComponent("""" + item) + ""&""; });", code);
         }
 
@@ -135,11 +135,11 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("const content_ = new FormData();", code);
             Assert.Contains("arrayOfIds.forEach(item_ => content_.append(\"arrayOfIds\", item_.toString()));", code);
         }

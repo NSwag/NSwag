@@ -3,7 +3,7 @@ using NSwag.Annotations;
 
 namespace NSwag.Sample.NetGlobalAsax.Controllers
 {
-    [SwaggerIgnore]
+    [OpenApiIgnore]
     public class HomeController : Controller
     {
         public ActionResult Index()

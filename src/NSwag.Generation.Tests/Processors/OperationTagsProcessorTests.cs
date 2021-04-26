@@ -37,17 +37,17 @@ namespace NSwag.Generation.Tests.Processors
         [Fact]
         public void Process_AddsTagsFromTaggedControllerForUntaggedMethod()
         {
-            //// Arrange
+            // Arrange
             var controllerType = typeof(TaggedController);
             var methodInfo = controllerType.GetMethod("UntaggedMethod");
 
             var context = GetContext(controllerType, methodInfo);
             var processor = new OperationTagsProcessor();
 
-            //// Act
+            // Act
             processor.Process(context);
 
-            //// Assert
+            // Assert
             var tags = context.OperationDescription.Operation.Tags;
 
             Assert.Collection(
@@ -69,17 +69,17 @@ namespace NSwag.Generation.Tests.Processors
         [Fact]
         public void Process_AddsTagsFromTaggedMethod()
         {
-            //// Arrange
+            // Arrange
             var controllerType = typeof(TaggedController);
             var methodInfo = controllerType.GetMethod("TaggedMethod");
 
             var context = GetContext(controllerType, methodInfo);
             var processor = new OperationTagsProcessor();
 
-            //// Act
+            // Act
             processor.Process(context);
 
-            //// Assert
+            // Assert
             var tags = context.OperationDescription.Operation.Tags;
 
             Assert.Collection(
@@ -101,17 +101,17 @@ namespace NSwag.Generation.Tests.Processors
         [Fact]
         public void Process_AddsControllerNameWhenNoTagsArePresent()
         {
-            //// Arrange
+            // Arrange
             var controllerType = typeof(UntaggedController);
             var methodInfo = controllerType.GetMethod("UntaggedMethod");
 
             var context = GetContext(controllerType, methodInfo);
             var processor = new OperationTagsProcessor();
 
-            //// Act
+            // Act
             processor.Process(context);
 
-            //// Assert
+            // Assert
             var tags = context.OperationDescription.Operation.Tags;
 
             Assert.Collection(

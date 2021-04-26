@@ -161,6 +161,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 Build", "00 Build", "{6F5E4FDF-0A82-42D5-94AC-A9CD43CC931D}"
 	ProjectSection(SolutionItems) = preProject
 		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
 Global
@@ -333,20 +334,14 @@ Global
 		{6DF73809-53CA-4A82-AAE6-3C2C62C2D8E8}.ReleaseTypeScriptStrict|x86.Build.0 = Release|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Debug|x64.ActiveCfg = Debug|x64
-		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Debug|x64.Build.0 = Debug|x64
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Debug|x86.Build.0 = Debug|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Release|x64.ActiveCfg = Release|x64
-		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Release|x64.Build.0 = Release|x64
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Release|x86.ActiveCfg = Release|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.Release|x86.Build.0 = Release|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.ReleaseTypeScriptStrict|Any CPU.ActiveCfg = Release|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.ReleaseTypeScriptStrict|Any CPU.Build.0 = Release|Any CPU
-		{ECD41518-A92C-4706-8E74-9707AFA554B7}.ReleaseTypeScriptStrict|x64.ActiveCfg = Release|x64
-		{ECD41518-A92C-4706-8E74-9707AFA554B7}.ReleaseTypeScriptStrict|x64.Build.0 = Release|x64
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.ReleaseTypeScriptStrict|x86.ActiveCfg = Release|Any CPU
 		{ECD41518-A92C-4706-8E74-9707AFA554B7}.ReleaseTypeScriptStrict|x86.Build.0 = Release|Any CPU
 		{A46ED5E6-95EE-448B-AA88-E43FA32482B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

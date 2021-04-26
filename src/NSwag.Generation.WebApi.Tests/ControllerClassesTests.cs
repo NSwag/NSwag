@@ -47,65 +47,65 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public void When_class_inherits_from_ControllerBase_then_it_is_found()
         {
-            //// Arrange
+            // Arrange
 
 
-            //// Act
+            // Act
             var controllerClasses = WebApiOpenApiDocumentGenerator.GetControllerClasses(typeof(ControllerClassesTests).Assembly);
 
-            //// Assert
+            // Assert
             Assert.IsTrue(controllerClasses.Contains(typeof(MyAspCore)));
         }
 
         [TestMethod]
         public void When_class_ends_with_Controller_then_it_is_found()
         {
-            //// Arrange
+            // Arrange
 
 
-            //// Act
+            // Act
             var controllerClasses = WebApiOpenApiDocumentGenerator.GetControllerClasses(typeof(ControllerClassesTests).Assembly);
 
-            //// Assert
+            // Assert
             Assert.IsTrue(controllerClasses.Contains(typeof(MyController)));
         }
 
         [TestMethod]
         public void When_class_inherits_from_ApiController_then_it_is_found()
         {
-            //// Arrange
+            // Arrange
 
 
-            //// Act
+            // Act
             var controllerClasses = WebApiOpenApiDocumentGenerator.GetControllerClasses(typeof(ControllerClassesTests).Assembly);
 
-            //// Assert
+            // Assert
             Assert.IsTrue(controllerClasses.Contains(typeof(MyWebApi)));
         }
 
         [TestMethod]
         public void When_class_is_MVC_controller_then_it_is_ignored()
         {
-            //// Arrange
+            // Arrange
 
 
-            //// Act
+            // Act
             var controllerClasses = WebApiOpenApiDocumentGenerator.GetControllerClasses(typeof(ControllerClassesTests).Assembly);
 
-            //// Assert
+            // Assert
             Assert.IsFalse(controllerClasses.Contains(typeof(MyLegacyMvcController)));
         }
 
         [TestMethod]
         public void When_class_is_abstract_then_it_is_ignored()
         {
-            //// Arrange
+            // Arrange
 
 
-            //// Act
+            // Act
             var controllerClasses = WebApiOpenApiDocumentGenerator.GetControllerClasses(typeof(ControllerClassesTests).Assembly);
 
-            //// Assert
+            // Assert
             Assert.IsFalse(controllerClasses.Contains(typeof(MyAbstractController)));
         }
     }

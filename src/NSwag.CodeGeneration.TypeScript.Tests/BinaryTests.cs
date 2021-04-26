@@ -46,11 +46,11 @@ components:
 
             var document = await OpenApiYamlDocument.FromYamlAsync(yaml);
 
-            //// Act
+            // Act
             var codeGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("addFile(body: Blob | undefined): ", code);
             Assert.Contains("\"Content-Type\": \"image/png\"", code);
             Assert.Contains("\"Accept\": \"application/xml\"", code);
@@ -113,11 +113,11 @@ components:
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("const content_ = new FormData();", code);
             Assert.Contains("interface FileParameter", code);
             Assert.Contains("content_.append(\"file\", file.data, file.fileName ? file.fileName : \"file\");", code);
@@ -183,11 +183,11 @@ components:
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("const content_ = new FormData();", code);
             Assert.Contains("interface FileParameter", code);
             Assert.Contains("content_.append(\"files\", item_.data, item_.fileName ? item_.fileName : \"files\")", code);
@@ -262,11 +262,11 @@ components:
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("const content_ = new FormData();", code);
             Assert.Contains("interface FileParameter", code);
             Assert.Contains("content_.append(\"Contents\", contents.data, contents.fileName ? contents.fileName : \"Contents\");", code);

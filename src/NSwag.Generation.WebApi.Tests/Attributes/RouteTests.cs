@@ -30,14 +30,14 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_route_contains_path_parameter_and_action_method_proper_parameter_then_it_is_generated_as_parameter()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings { IsAspNetCore = true });
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<FoodsController>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             var operation = document.Operations.First();
             Assert.IsTrue(operation.Path.Contains("{regionId}"));
             Assert.AreEqual("regionId", operation.Operation.Parameters.First().Name);

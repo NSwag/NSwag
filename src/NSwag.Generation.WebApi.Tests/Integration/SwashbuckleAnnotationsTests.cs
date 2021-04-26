@@ -40,16 +40,16 @@ namespace NSwag.Generation.WebApi.Tests.Integration
             [Swashbuckle.Swagger.Annotations.SwaggerOperation("AddFlightLock")]
 
             [System.Web.Http.Description.ResponseType(typeof(LockedFlight))]
-            public async Task<IHttpActionResult> Post(string id)
+            public Task<IHttpActionResult> Post(string id)
             {
-                return null;
+                return Task.FromResult<IHttpActionResult>(null);
             }
         }
 
         [TestMethod]
         public async Task When_redundant_attributes_are_available_then_output_is_correct()
         {
-            //// Arrange
+            // Arrange
             var settings = new WebApiOpenApiDocumentGeneratorSettings
             {
                 TypeMappers =
@@ -69,26 +69,26 @@ namespace NSwag.Generation.WebApi.Tests.Integration
             };
             var generator = new WebApiOpenApiDocumentGenerator(settings);
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<MyController>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(json.Contains("\"$ref\": \"#/definitions/LockedFlight\""));
         }
 
         [TestMethod]
         public async Task When_SwaggerResponseAttribute_is_on_class_then_it_is_applied_to_all_methods()
         {
-            //// Arrange
+            // Arrange
             var settings = new WebApiOpenApiDocumentGeneratorSettings();
             var generator = new WebApiOpenApiDocumentGenerator(settings);
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<MyController>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(document.Operations.First().Operation.ActualResponses.ContainsKey("403"));
         }
     }

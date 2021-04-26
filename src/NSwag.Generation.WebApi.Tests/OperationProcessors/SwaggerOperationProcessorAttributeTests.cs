@@ -75,14 +75,14 @@ namespace NSwag.Generation.WebApi.Tests.OperationProcessors
         [TestMethod]
         public async Task When_custom_operation_processor_is_added_via_attribute_then_it_is_processed()
         {
-            //// Arrange
+            // Arrange
             var settings = new WebApiOpenApiDocumentGeneratorSettings();
             var generator = new WebApiOpenApiDocumentGenerator(settings);
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TestController>();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(document.Operations.First().Operation.ExtensionData.ContainsKey("x-code-samples"));
             Assert.AreEqual(2, ((IList)document.Operations.First().Operation.ExtensionData["x-code-samples"]).Count);
         }

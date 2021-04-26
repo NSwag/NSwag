@@ -98,7 +98,7 @@ namespace NSwagStudio.ViewModels.SwaggerGenerators
             });
         }
 
-        private async Task BrowseAssembly()
+        private Task BrowseAssembly()
         {
             var dlg = new OpenFileDialog();
             dlg.DefaultExt = ".dll"; //
@@ -107,6 +107,8 @@ namespace NSwagStudio.ViewModels.SwaggerGenerators
             {
                 AssemblyPaths = new[] { dlg.FileName };
             }
+
+            return Task.CompletedTask;
         }
     }
 }

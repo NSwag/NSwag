@@ -22,14 +22,14 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_response_is_file_then_mime_type_is_bytes()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<FileResponseController>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             var operation = document.Operations.First().Operation;
 
             //Assert.AreEqual("application/octet-stream", operation.ActualProduces.First());

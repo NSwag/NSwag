@@ -29,7 +29,7 @@ namespace NSwag.Generation.WebApi.Tests.OperationNameGenerator
         [TestMethod]
         public async Task When_two_methods_have_same_name_then_generated_id_is_still_different()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllerAsync<PointController>();
             var codeGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
@@ -37,10 +37,10 @@ namespace NSwag.Generation.WebApi.Tests.OperationNameGenerator
                 OperationNameGenerator = new MultipleClientsFromOperationIdOperationNameGenerator()
             });
 
-            //// Act
+            // Act
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(code.Contains(" get("));
             Assert.IsTrue(code.Contains(" getAll("));
         }

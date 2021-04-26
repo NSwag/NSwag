@@ -25,14 +25,14 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_controller_has_tag_attributes_then_they_are_processed()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TagsTest1Controller>();
             var json = document.ToJson();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(4, document.Tags.Count);
 
             Assert.AreEqual("x", document.Tags[0].Name);
@@ -60,13 +60,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_operation_has_tags_attributes_then_they_are_processed()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TagsTest2Controller>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual("[\"foo\",\"bar\"]", JsonConvert.SerializeObject(document.Operations.First().Operation.Tags));
         }
 
@@ -86,13 +86,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_operation_has_tag_attribute_with_AddToDocument_then_it_is_added_to_document()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TagsTest3Controller>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(1, document.Tags.Count);
             Assert.AreEqual("foo", document.Tags[0].Name);
 
@@ -112,13 +112,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_operation_has_tags_attribute_with_AddToDocument_then_it_is_added_to_document()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<TagsTest4Controller>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual(2, document.Tags.Count);
             Assert.AreEqual("foo", document.Tags[0].Name);
             Assert.AreEqual("bar", document.Tags[1].Name);

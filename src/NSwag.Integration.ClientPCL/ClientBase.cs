@@ -7,19 +7,19 @@ namespace NSwag.Integration.ClientPCL
 {
     public class ClientBase
     {
-        protected async Task<HttpClient> CreateHttpClientAsync(CancellationToken cancellationToken)
+        protected Task<HttpClient> CreateHttpClientAsync(CancellationToken cancellationToken)
         {
-            return new HttpClient();
+            return Task.FromResult(new HttpClient());
         }
 
-        protected async Task<HttpRequestMessage> CreateHttpRequestMessageAsync(CancellationToken cancellationToken)
+        protected Task<HttpRequestMessage> CreateHttpRequestMessageAsync(CancellationToken cancellationToken)
         {
-            return new HttpRequestMessage();
+            return Task.FromResult(new HttpRequestMessage());
         }
 
         protected void UpdateJsonSerializerSettings(JsonSerializerSettings settings)
         {
-            
+
         }
     }
 }

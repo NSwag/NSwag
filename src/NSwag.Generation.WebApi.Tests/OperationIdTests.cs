@@ -41,13 +41,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_SwaggerOperation_attribute_is_available_then_operation_id_is_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<OperationIdController>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual("MyFoo", document.Operations.First(o => o.Path == "/Foo").Operation.OperationId);
             Assert.AreEqual("OperationId_Bar", document.Operations.First(o => o.Path == "/Bar").Operation.OperationId);
         }
@@ -55,13 +55,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_method_has_overload_then_operation_ids_are_still_unique()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<OperationIdController>();
 
-            //// Assert
+            // Assert
             var allIds = document.Operations.Select(o => o.Operation.OperationId).ToArray();
             Assert.AreEqual(4, allIds.Distinct().Count());
         }
@@ -83,13 +83,13 @@ namespace NSwag.Generation.WebApi.Tests
         [TestMethod]
         public async Task When_routes_are_same_and_http_method_different_then_operation_ids_are_still_generated_from_method_name()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<AccountController>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual("Account_GetAccount", document.Operations.First().Operation.OperationId);
             Assert.AreEqual("Account_DeleteAccount", document.Operations.Last().Operation.OperationId);
         }

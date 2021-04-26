@@ -36,7 +36,7 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task SwaggerDocumentIsGeneratedForCustomCreatedApiDescriptions()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = new[]
             {
@@ -150,10 +150,10 @@ namespace NSwag.Generation.AspNetCore.Tests
                 new[] { new ApiDescriptionGroup(string.Empty, apiDescriptions) },
                 version: 1);
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptionGroupCollection);
 
-            //// Assert
+            // Assert
             Assert.Collection(
                 document.Operations.OrderBy(o => o.Method.ToString()),
                 operation =>
@@ -181,14 +181,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task When_generating_swagger_all_apidescriptions_are_discovered()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(TestController));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operationDescription = Assert.Single(document.Operations);
             Assert.Equal("/test", operationDescription.Path);
             Assert.Equal(OpenApiOperationMethod.Get, operationDescription.Method);
@@ -211,14 +211,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task When_generating_swagger_all_apidescriptions_are_discovered_for_2_1_applications()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = Get2_1_ApiDescriptionGroups(typeof(TestController));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operationDescription = Assert.Single(document.Operations);
             Assert.Equal("/test", operationDescription.Path);
             Assert.Equal(OpenApiOperationMethod.Get, operationDescription.Method);
@@ -245,28 +245,28 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task ControllersWithSwaggerIgnoreAttribute_AreIgnored()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithSwaggerIgnoreAttribute));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             Assert.Empty(document.Operations);
         }
 
         [Fact]
         public async Task ActionsWithSwaggerIgnoreAttribute_AreIgnored()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ActionWithSwaggerIgnoreAttribute));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operationDescription = Assert.Single(document.Operations);
             Assert.Equal("/test1", operationDescription.Path);
             Assert.Equal(OpenApiOperationMethod.Get, operationDescription.Method);
@@ -275,14 +275,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task ParametersWithSwaggerIgnoreAttribute_AreIgnored()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ParameterWithSwaggerIgnoreAttribute));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operationDescription = Assert.Single(document.Operations);
             Assert.Equal("/{id}", operationDescription.Path);
             Assert.Equal(OpenApiOperationMethod.Post, operationDescription.Method);
@@ -295,14 +295,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task SwaggerOperationMethods_AreParsed()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(HttpMethodsController));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             Assert.Collection(
                 document.Operations.OrderBy(o => o.Method.ToString()),
                 operation =>
@@ -330,14 +330,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task SwaggerOperationAttribute_AreUsedToCalculateOperationId_IfPresent()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ActionWithSwaggerOperationAttribute));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations);
             Assert.Equal("CustomOperationId", operation.Operation.OperationId);
         }
@@ -345,42 +345,42 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task SwaggerOperationProcessorAttributesOnControllerTypes_AreDiscoveredAndExecuted()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithSwaggerOperationProcessor));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             Assert.Equal("Hello from controller", document.Info.Title);
         }
 
         [Fact]
         public async Task SwaggerOperationProcessorAttributesOnActions_AreDiscoveredAndExecuted()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ActionWithSwaggerOperationProcessor));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             Assert.Equal("Hello from action", document.Info.Title);
         }
 
         [Fact]
         public async Task SwaggerResponseAttributesOnControllersAreDiscovered()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithSwaggerResponseTypeAttribute));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations);
             Assert.Single(operation.Operation.Responses);
             var response = operation.Operation.Responses["202"];
@@ -391,14 +391,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task SwaggerResponseAttributesOnActionsAreDiscovered()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ActionWithSwaggerResponseAttribute));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations);
             Assert.Single(operation.Operation.Responses);
             var response = operation.Operation.Responses["201"];
@@ -409,14 +409,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task FromHeaderParametersAreDiscovered()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithParameters));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations, o => o.Path == "/" + nameof(ControllerWithParameters.FromHeaderParameter)).Operation;
             var parameter = Assert.Single(operation.Parameters);
             Assert.Equal(OpenApiParameterKind.Header, parameter.Kind);
@@ -426,14 +426,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task FromBodyParametersAreDiscovered()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithParameters));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations, o => o.Path == "/" + nameof(ControllerWithParameters.FromBodyParameter)).Operation;
             var parameter = Assert.Single(operation.Parameters);
             Assert.Equal(OpenApiParameterKind.Body, parameter.Kind);
@@ -444,14 +444,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task FromFormParametersAreDiscovered()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings { RequireParametersWithoutDefault = true });
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithParameters));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations, o => o.Path == "/" + nameof(ControllerWithParameters.FromFormParameter)).Operation;
             var parameter = Assert.Single(operation.Parameters);
             Assert.Equal(OpenApiParameterKind.FormData, parameter.Kind);
@@ -462,14 +462,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task QueryParametersAreDiscovered()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings { RequireParametersWithoutDefault = true });
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithParameters));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations, o => o.Path == "/" + nameof(ControllerWithParameters.QueryParameter)).Operation;
             var requiredParameter = operation.Parameters.First();
             var optionalParameter = operation.Parameters.Last();
@@ -487,14 +487,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task FormFileParametersAreDiscovered()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithParameters));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations, o => o.Path == "/" + nameof(ControllerWithParameters.FileParameter)).Operation;
             var parameter = Assert.Single(operation.Parameters);
             Assert.Equal(OpenApiParameterKind.FormData, parameter.Kind);
@@ -504,14 +504,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task ComplexQueryParametersAreProcessed()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithParameters));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations, o => o.Path == "/" + nameof(ControllerWithParameters.ComplexFromQueryParameter)).Operation;
             Assert.Collection(
                 operation.Parameters.OrderBy(p => p.Name),
@@ -535,14 +535,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task BoundPropertiesAreProcessed()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithBoundProperties));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations).Operation;
             Assert.Collection(
                 operation.Parameters.OrderBy(p => p.Name),
@@ -566,14 +566,14 @@ namespace NSwag.Generation.AspNetCore.Tests
         [Fact]
         public async Task When_no_IncludedVersions_are_defined_then_all_routes_are_available_and_replaced()
         {
-            //// Arrange
+            // Arrange
             var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings());
             var apiDescriptions = GetApiDescriptionGroups(typeof(ControllerWithReCodeAttribute));
 
-            //// Act
+            // Act
             var document = await generator.GenerateAsync(apiDescriptions);
 
-            //// Assert
+            // Assert
             var operation = Assert.Single(document.Operations).Operation;
             Assert.True(operation.ExtensionData.ContainsKey("x-code-samples"));
             var extenstionData = (IList<ReDocCodeSampleAttribute.ReDocCodeSample>)operation.ExtensionData["x-code-samples"];
@@ -886,7 +886,9 @@ namespace NSwag.Generation.AspNetCore.Tests
 
         private class ApiResponseType2_1 : ApiResponseType
         {
+#pragma warning disable 108,114
             public bool IsDefaultResponse { get; set; }
+#pragma warning restore 108,114
         }
         #endregion
     }

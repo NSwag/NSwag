@@ -56,14 +56,14 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 }";
             var document = await OpenApiDocument.FromJsonAsync(json, null, SchemaType.OpenApi3, null);
 
-            //// Act
+            // Act
             var codeGenerator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings
             {
                 GenerateClientInterfaces = true
             });
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("var content_ = new System.Net.Http.StreamContent(body);", code);
         }
     }

@@ -28,7 +28,7 @@ namespace NSwag.Commands
                 command.OutputFilePath.EndsWith(".yaml", StringComparison.OrdinalIgnoreCase) ? OpenApiYamlDocument.ToYaml(generator()) : generator().ToJson());
         }
 
-        public static async Task<bool> TryWriteFileOutputAsync(this IOutputCommand command, string path, IConsoleHost host, NewLineBehavior newLineBehavior, Func<string> generator)
+        public static Task<bool> TryWriteFileOutputAsync(this IOutputCommand command, string path, IConsoleHost host, NewLineBehavior newLineBehavior, Func<string> generator)
         {
             if (!string.IsNullOrEmpty(path))
             {
@@ -54,9 +54,9 @@ namespace NSwag.Commands
                 {
                     host?.WriteMessage("Code has been successfully generated but not written to file (no change detected).\n");
                 }
-                return true;
+                return Task.FromResult(true);
             }
-            return false;
+            return Task.FromResult(false);
         }
     }
 }

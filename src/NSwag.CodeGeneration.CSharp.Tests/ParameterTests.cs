@@ -9,7 +9,7 @@ namespace NSwag.CodeGeneration.CSharp.Tests
         [Fact]
         public void When_parameters_have_same_name_then_they_are_renamed()
         {
-            //// Arrange
+            // Arrange
             var document = new OpenApiDocument();
             document.Paths["foo"] = new OpenApiPathItem
             {
@@ -33,18 +33,18 @@ namespace NSwag.CodeGeneration.CSharp.Tests
                 }
             };
 
-            //// Act
+            // Act
             var generator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("FooAsync(object fooQuery, object fooHeader, System.Threading.CancellationToken cancellationToken)", code);
         }
 
         [Fact]
         public void When_parent_parameters_have_same_kind_then_they_are_included()
         {
-            //// Arrange
+            // Arrange
             var swagger = @"{
   ""swagger"" : ""2.0"",
   ""info"" : {
@@ -107,18 +107,18 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 ";
             var document = OpenApiDocument.FromJsonAsync(swagger).Result;
 
-            //// Act
+            // Act
             var generator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("RemoveElementAsync(string x_User, System.Collections.Generic.IEnumerable<long> elementId, string secureToken)", code);
         }
 
         [Fact]
         public void When_swagger_contains_optional_parameters_then_they_are_rendered_in_CSharp()
         {
-            //// Arrange
+            // Arrange
             var swagger = @"{
    ""paths"":{
       ""/journeys"":{
@@ -189,11 +189,11 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = OpenApiDocument.FromJsonAsync(swagger).Result;
 
-            //// Act
+            // Act
             var generator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("lastName", code);
             Assert.Contains("optionalOrderId", code);
         }
@@ -201,7 +201,7 @@ namespace NSwag.CodeGeneration.CSharp.Tests
         [Fact]
         public void Deep_object_properties_are_correctly_named()
         {
-            //// Arrange
+            // Arrange
             var swagger = @"{
    'openapi' : '3.0',
    'info' : {
@@ -265,11 +265,11 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = OpenApiDocument.FromJsonAsync(swagger, "", SchemaType.OpenApi3).Result;
 
-            //// Act
+            // Act
             var generator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains(@"""options[optionalOrder.id]"") + ""=""", code);
             Assert.Contains("options.OptionalOrderId", code);
         }
@@ -277,7 +277,7 @@ namespace NSwag.CodeGeneration.CSharp.Tests
         [Fact]
         public void Date_and_DateTimeFormat_Parameters_are_correctly_applied()
         {
-            //// Arrange
+            // Arrange
             var swagger = @"{
    'openapi' : '3.1',
    'info' : {
@@ -323,7 +323,7 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             var document = OpenApiDocument.FromJsonAsync(swagger, "", SchemaType.OpenApi3).Result;
 
-            //// Act once with defaults and once with custom values
+            // Act once with defaults and once with custom values
             var generatorDefault = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var codeWithDefaults = generatorDefault.GenerateFile();
 
@@ -333,13 +333,13 @@ namespace NSwag.CodeGeneration.CSharp.Tests
             var generator = new CSharpClientGenerator(document, settings);
             var code = generator.GenerateFile();
 
-            //// Assert defaults
+            // Assert defaults
             Assert.Contains(@"from.ToString(""yyyy-MM-dd""", codeWithDefaults);
             Assert.Contains(@"to.ToString(""s""", codeWithDefaults);
             Assert.Contains(@"fromQuery.Value.ToString(""yyyy-MM-dd""", codeWithDefaults);
             Assert.Contains(@"toQuery.Value.ToString(""s""", codeWithDefaults);
 
-            //// Assert custom values defaults
+            // Assert custom values defaults
             Assert.Contains($@"from.ToString(""{dateFormat }""", code);
             Assert.Contains($@"to.ToString(""{dateTimeFormat}""", code);
             Assert.Contains($@"fromQuery.Value.ToString(""{dateFormat}""", code);

@@ -48,7 +48,7 @@ namespace NSwag.Generation.WebApi.Tests.OperationNameGenerator
         [TestMethod]
         public async Task When_operations_have_different_tags_they_are_grouped_into_different_clients()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllersAsync(new List<Type>() { typeof(PointControllerA), typeof(PointControllerB) });
             var codeGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
@@ -56,10 +56,10 @@ namespace NSwag.Generation.WebApi.Tests.OperationNameGenerator
                 OperationNameGenerator = new MultipleClientsFromFirstTagAndPathSegmentsOperationNameGenerator()
             });
 
-            //// Act
+            // Act
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(code.Contains("export class PointControllerAClient"));
             Assert.IsTrue(code.Contains("export class PointControllerBClient"));
         }
@@ -67,7 +67,7 @@ namespace NSwag.Generation.WebApi.Tests.OperationNameGenerator
         [TestMethod]
         public async Task When_operations_have_no_tags_they_are_grouped_into_one_client()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllersAsync(new List<Type>() { typeof(PointControllerA), typeof(PointControllerB) });
 
@@ -84,10 +84,10 @@ namespace NSwag.Generation.WebApi.Tests.OperationNameGenerator
                 OperationNameGenerator = new MultipleClientsFromFirstTagAndPathSegmentsOperationNameGenerator()
             });
 
-            //// Act
+            // Act
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.IsTrue(code.Contains("export class Client"));
             Assert.IsTrue(!code.Contains("export class PointControllerAClient"));
             Assert.IsTrue(!code.Contains("export class PointControllerBClient"));

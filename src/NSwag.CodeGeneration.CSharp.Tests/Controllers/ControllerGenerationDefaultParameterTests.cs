@@ -9,7 +9,7 @@ namespace NSwag.CodeGeneration.CSharp.Tests.Controllers
         [Fact]
         public void When_parameter_has_default_then_set_in_partial_controller()
         {
-            //// Arrange
+            // Arrange
             var document = new OpenApiDocument();
             document.Paths["foo/bar"] = new OpenApiPathItem
             {
@@ -71,13 +71,13 @@ namespace NSwag.CodeGeneration.CSharp.Tests.Controllers
                 }
             };
 
-            //// Act
+            // Act
             var generator =
                 new CSharpControllerGenerator(document,
                     new CSharpControllerGeneratorSettings { GenerateOptionalParameters = true });
             var code = generator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("_implementation.BarAsync(abc, booldef ?? true, intdef ?? 42, doubledef ?? 0.6822871999174D, decdef ?? 79228162514264337593543950335M, strdef ?? \"default\\\"string\\\"\", bar)", code);
             Assert.Contains("BarAsync(int abc, bool booldef, int intdef, double doubledef, decimal decdef, string strdef, int? bar = null);", code);
 

@@ -13,13 +13,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_route_is_on_inherited_parent_class_and_route_prefix_on_class_then_it_is_used_for_swagger_generation()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<MyController>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual("/api/My/Foo", document.Operations.First().Path);
         }
 
@@ -41,13 +41,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_route_is_on_inherited_parent_class_then_it_is_used_for_swagger_generation()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<MyController2>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual("/Foo", document.Operations.First().Path);
         }
 

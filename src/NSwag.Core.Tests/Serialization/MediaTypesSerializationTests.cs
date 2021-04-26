@@ -8,13 +8,13 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public void When_response_schema_and_example_is_set_then_it_is_serialized_correctly_in_Swagger()
         {
-            //// Arrange
+            // Arrange
             var document = CreateDocument(JsonObjectType.String);
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.Swagger2);
 
-            //// Assert
+            // Assert
             Assert.Contains(
 @"  ""paths"": {
     ""/foo"": {
@@ -38,13 +38,13 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public void When_response_schema_and_example_is_set_then_it_is_serialized_correctly_in_OpenApi()
         {
-            //// Arrange
+            // Arrange
             var document = CreateDocument(JsonObjectType.String);
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.OpenApi3);
 
-            //// Assert
+            // Assert
             Assert.Equal(
 @"{
   ""openapi"": ""3.0.0"",
@@ -79,13 +79,13 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public void When_response_schema_and_example_is_set_as_file_then_it_is_serialized_correctly_in_Swagger()
         {
-            //// Arrange
+            // Arrange
             var document = CreateDocument(JsonObjectType.File);
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.Swagger2);
 
-            //// Assert
+            // Assert
             Assert.Contains(
                 @"  ""paths"": {
     ""/foo"": {
@@ -109,13 +109,13 @@ namespace NSwag.Core.Tests.Serialization
         [Fact]
         public void When_response_schema_and_example_is_set_as_file_then_it_is_serialized_correctly_in_OpenApi()
         {
-            //// Arrange
+            // Arrange
             var document = CreateDocument(JsonObjectType.File);
 
-            //// Act
+            // Act
             var json = document.ToJson(SchemaType.OpenApi3);
 
-            //// Assert
+            // Assert
             Assert.Equal(
                 @"{
   ""openapi"": ""3.0.0"",

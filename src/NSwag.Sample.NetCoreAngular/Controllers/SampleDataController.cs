@@ -29,15 +29,15 @@ namespace NSwag.Sample.NetCoreAngular.Controllers
 
         [HttpDelete]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> DeleteShop([FromQuery]Guid id, [FromHeader]List<string> additionalIds)
+        public Task<IActionResult> DeleteShop([FromQuery]Guid id, [FromHeader]List<string> additionalIds)
         {
-            return Ok();
+            return Task.FromResult<IActionResult>(Ok());
         }
 
         [HttpGet("[action]")]
         public DateTime?[] GetRoles(DateTime? from, DateTime? to = null)
         {
             return new DateTime?[] { from, to };
-        } 
+        }
     }
 }

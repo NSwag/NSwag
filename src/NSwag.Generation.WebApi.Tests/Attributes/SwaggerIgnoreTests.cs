@@ -21,13 +21,13 @@ namespace NSwag.Generation.WebApi.Tests.Attributes
         [TestMethod]
         public async Task When_parameter_is_ignored_then_the_route_is_correct()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
 
-            //// Act
+            // Act
             var document = await generator.GenerateForControllerAsync<MyController>();
 
-            //// Assert
+            // Assert
             Assert.AreEqual("/api/service", document.Paths.First().Key);
         }
     }

@@ -36,7 +36,7 @@ namespace NSwag.Demo.Web.Controllers
 
         // GET: api/Person/5
         /// <summary>Gets a person.</summary>
-        /// <param name="id">The ID of 
+        /// <param name="id">The ID of
         /// the person.</param>
         /// <returns>The person.</returns>
         [ResponseType(typeof(Person))]
@@ -95,7 +95,7 @@ namespace NSwag.Demo.Web.Controllers
         }
 
         [HttpGet]
-        [SwaggerIgnore]
+        [OpenApiIgnore]
         public async Task<HttpResponseMessage> Swagger()
         {
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings

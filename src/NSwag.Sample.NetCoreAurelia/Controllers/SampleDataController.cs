@@ -30,19 +30,20 @@ namespace NSwag_Sample_NetCoreAurelia.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<FileContentResult> GetFile(string fileName)
+        public Task<FileContentResult> GetFile(string fileName)
         {
-            return new FileContentResult(new byte[] { 1, 2, 3 }, new MediaTypeHeaderValue("application/octet-stream"))
+            var result = new FileContentResult(new byte[] { 1, 2, 3 }, new MediaTypeHeaderValue("application/octet-stream"))
             {
                 FileDownloadName = fileName
             };
+            return Task.FromResult(result);
         }
 
         [HttpDelete]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> DeleteShop([FromQuery]Guid id, [FromHeader]List<string> additionalIds)
+        public Task<IActionResult> DeleteShop([FromQuery]Guid id, [FromHeader]List<string> additionalIds)
         {
-            return Ok();
+            return Task.FromResult<IActionResult>(Ok());
         }
     }
 }

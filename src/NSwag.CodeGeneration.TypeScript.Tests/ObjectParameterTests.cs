@@ -65,11 +65,11 @@ namespace NSwag.CodeGeneration.TypeScript.Tests
 
             var document = await OpenApiDocument.FromJsonAsync(json);
 
-            //// Act
+            // Act
             var codeGenerator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings());
             var code = codeGenerator.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.Contains("const content_ = new FormData();", code);
             Assert.Contains("content_.append(\"propertyDto\", JSON.stringify(propertyDto))", code);
         }

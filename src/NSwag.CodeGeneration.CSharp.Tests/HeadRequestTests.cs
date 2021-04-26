@@ -18,15 +18,15 @@ namespace NSwag.CodeGeneration.CSharp.Tests
         [Fact]
         public async Task When_operation_is_HTTP_head_then_no_content_is_not_used()
         {
-            //// Arrange
+            // Arrange
             var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
             var document = await generator.GenerateForControllerAsync<HeadRequestController>();
 
-            //// Act
+            // Act
             var codeGen = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings());
             var code = codeGen.GenerateFile();
 
-            //// Assert
+            // Assert
             Assert.DoesNotContain("System.Net.Http.StringContent", code);
         }
     }

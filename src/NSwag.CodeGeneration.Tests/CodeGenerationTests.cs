@@ -20,7 +20,7 @@ namespace NSwag.CodeGeneration.Tests
             // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings { ClassName = "MyClass" };
             settings.CSharpGeneratorSettings.Namespace = "MyNamespace";
 
@@ -40,7 +40,7 @@ namespace NSwag.CodeGeneration.Tests
             // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings();
             settings.CSharpGeneratorSettings.JsonLibrary = NJsonSchema.CodeGeneration.CSharp.CSharpJsonLibrary.SystemTextJson;
 
@@ -57,7 +57,7 @@ namespace NSwag.CodeGeneration.Tests
             // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings();
             settings.CSharpGeneratorSettings.JsonLibrary = NJsonSchema.CodeGeneration.CSharp.CSharpJsonLibrary.SystemTextJson;
             settings.CSharpGeneratorSettings.JsonSerializerSettingsTransformationMethod = "TestJsonSerializerSettingsTransformationMethod";
@@ -75,7 +75,7 @@ namespace NSwag.CodeGeneration.Tests
             // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings();
             settings.CSharpGeneratorSettings.JsonLibrary = NJsonSchema.CodeGeneration.CSharp.CSharpJsonLibrary.NewtonsoftJson;
             settings.CSharpGeneratorSettings.JsonSerializerSettingsTransformationMethod = "TestJsonSerializerSettingsTransformationMethod";
@@ -93,7 +93,7 @@ namespace NSwag.CodeGeneration.Tests
             // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings();
             settings.CSharpGeneratorSettings.JsonLibrary = NJsonSchema.CodeGeneration.CSharp.CSharpJsonLibrary.SystemTextJson;
             settings.CSharpGeneratorSettings.JsonConverters = new[] { "CustomConverter1", "CustomConverter2" };
@@ -134,7 +134,7 @@ public static Person FromJson(string data)
 	return System.Text.Json.JsonSerializer.Deserialize<Person>(data, options);
 }";
 
-            //// Act
+            // Act
             var settings = new CSharpClientGeneratorSettings();
             settings.CSharpGeneratorSettings.JsonLibrary = NJsonSchema.CodeGeneration.CSharp.CSharpJsonLibrary.SystemTextJson;
             settings.CSharpGeneratorSettings.JsonConverters = new[] { "CustomConverter1", "CustomConverter2" };
@@ -155,7 +155,7 @@ public static Person FromJson(string data)
             // Arrange
             var document = CreateDocument();
 
-            //// Act
+            // Act
             var generator = new TypeScriptClientGenerator(document, new TypeScriptClientGeneratorSettings
             {
                 ClassName = "MyClass",
@@ -175,7 +175,7 @@ public static Person FromJson(string data)
         [Fact]
         public async Task When_using_json_schema_with_references_in_service_then_references_are_correctly_resolved()
         {
-            //// Arrange
+            // Arrange
             var jsonSchema = @"{
   ""definitions"": {
     ""app"": {
@@ -202,12 +202,12 @@ public static Person FromJson(string data)
   ""type"": ""object""
 }";
 
-            //// Act
+            // Act
             var schema = await JsonSchema.FromJsonAsync(jsonSchema);
             var document = new OpenApiDocument();
             document.Definitions["Foo"] = schema;
 
-            //// Assert
+            // Assert
             var jsonService = document.ToJson(); // no exception expected
         }
 
@@ -217,7 +217,7 @@ public static Person FromJson(string data)
             // Arrange
             var path = "/my/path/with/{parameter_with_underscore}/and/{another_parameter}";
 
-            //// Act
+            // Act
             var operationName = SingleClientFromPathSegmentsOperationNameGenerator.ConvertPathToName(path);
 
             // Assert
