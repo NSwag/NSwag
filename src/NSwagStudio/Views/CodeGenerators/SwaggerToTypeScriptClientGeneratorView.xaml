@@ -212,6 +212,13 @@
                         </StackPanel>
                     </GroupBox>
 
+                    <GroupBox Header="Parameter Types" Margin="0,0,0,12">
+                        <StackPanel Margin="4,8,4,-8">
+                            <TextBlock Text="Named Parameters" FontWeight="Bold" Margin="0,0,0,6" />
+                            <TextBox Text="{Binding Command.NamedParameters, Mode=TwoWay}" ToolTip="NamedParameters" Margin="0,0,0,12" />
+                        </StackPanel>
+                    </GroupBox>
+
                     <GroupBox Header="DTO Types" Margin="0,0,0,12">
                         <StackPanel Margin="4,8,4,-8">
                             <CheckBox IsChecked="{Binding Command.GenerateDtoTypes, Mode=TwoWay}" 

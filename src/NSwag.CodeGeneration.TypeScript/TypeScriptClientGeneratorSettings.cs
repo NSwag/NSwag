@@ -111,6 +111,9 @@ namespace NSwag.CodeGeneration.TypeScript
         /// <summary>Gets or sets the injection token type (applies only for the Angular template).</summary>
         public InjectionTokenType InjectionTokenType { get; set; } = InjectionTokenType.OpaqueToken;
 
+        /// <summary>Creates client methods that use position invariant, named parameters as input (default: false).</summary>
+        public bool NamedParameters { get; set; }
+
         internal ITemplate CreateTemplate(object model)
         {
             if (Template == TypeScriptTemplate.Aurelia)

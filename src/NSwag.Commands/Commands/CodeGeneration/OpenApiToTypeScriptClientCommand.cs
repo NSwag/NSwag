@@ -394,6 +394,13 @@ namespace NSwag.Commands.CodeGeneration
             return code;
         }
 
+        [Argument(Name = "NamedParameters", IsRequired = false, Description = "Creates client methods that use position invariant, named parameters as input (default: false).")]
+        public bool NamedParameters
+        {
+            get { return Settings.NamedParameters; }
+            set { Settings.NamedParameters = value; }
+        }
+
         public Task<string> RunAsync()
         {
             return Task.Run(async () =>

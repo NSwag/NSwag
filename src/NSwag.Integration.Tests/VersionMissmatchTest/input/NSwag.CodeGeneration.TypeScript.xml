@@ -81,6 +81,9 @@
         <member name="P:NSwag.CodeGeneration.TypeScript.Models.TypeScriptClientTemplateModel.WrapDtoExceptions">
             <summary>Gets or sets a value indicating whether DTO exceptions are wrapped in a SwaggerException instance.</summary>
         </member>
+        <member name="P:NSwag.CodeGeneration.TypeScript.Models.TypeScriptClientTemplateModel.NamedParameters">
+            <summary>Creates client methods that use position invariant, named parameters as input (default: false).</summary>
+        </member>
         <member name="T:NSwag.CodeGeneration.TypeScript.Models.TypeScriptFileTemplateModel">
             <summary>The TypeScript file template model.</summary>
         </member>
