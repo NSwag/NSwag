@@ -51,6 +51,9 @@ namespace NSwag.CodeGeneration.CSharp.Models
             _resolver = resolver;
 
             var parameters = GetActualParameters();
+            parameters = parameters
+                .OrderBy(p => p.Position ?? 0)
+                .ToList();
 
             if (settings.GenerateOptionalParameters)
             {
@@ -58,14 +61,13 @@ namespace NSwag.CodeGeneration.CSharp.Models
                 if (generator is CSharpControllerGenerator)
                 {
                     parameters = parameters
-                        .OrderBy(p => p.Position ?? 0)
                         .OrderBy(p => !p.IsRequired)
-                        .ThenBy(p => p.Default == null).ToList();
+                        .ThenBy(p => p.Default == null)
+                        .ToList();
                 }
                 else
                 {
                     parameters = parameters
-                        .OrderBy(p => p.Position ?? 0)
                         .OrderBy(p => !p.IsRequired)
                         .ToList();
                 }
