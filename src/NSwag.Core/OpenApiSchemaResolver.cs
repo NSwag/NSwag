@@ -7,6 +7,7 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using NJsonSchema;
 using NJsonSchema.Generation;
 
@@ -37,11 +38,18 @@ namespace NSwag
         /// <summary>Appends the schema to the root object.</summary>
         /// <param name="schema">The schema to append.</param>
         /// <param name="typeNameHint">The type name hint.</param>
-        public override void AppendSchema(JsonSchema schema, string typeNameHint)
+        public override void AppendSchema(JsonSchema schema, string typeNameHint, Type type)
         {
             if (!Document.Definitions.Values.Contains(schema))
             {
                 var typeName = _typeNameGenerator.Generate(schema, typeNameHint, Document.Definitions.Keys);
+                var attemptedTypeName = _typeNameGenerator.Generate(schema, typeNameHint, new List<string>() { });
+                Document.DefinitionsMap.Add(new TypeDefinitionTracker()
+                {
+                    GeneratedTypeName = typeName,
+                    AttemptedTypeName = attemptedTypeName,
+                    Type = type
+                });
                 Document.Definitions[typeName] = schema;
             }
         }

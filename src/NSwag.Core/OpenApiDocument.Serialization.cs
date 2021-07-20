@@ -199,6 +199,10 @@ namespace NSwag
         [JsonProperty(PropertyName = "definitions", Order = 13, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IDictionary<string, JsonSchema> Definitions => Components.Schemas;
 
+        /// <summary>Gets or sets a list of type mappings to be used for post processing.</summary>
+        [JsonIgnore]
+        public List<TypeDefinitionTracker> DefinitionsMap { get; set; } = new List<TypeDefinitionTracker>();
+
         /// <summary>Gets or sets the parameters which can be used for all operations (Swagger only).</summary>
         [JsonProperty(PropertyName = "parameters", Order = 14, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public IDictionary<string, OpenApiParameter> Parameters => Components.Parameters;

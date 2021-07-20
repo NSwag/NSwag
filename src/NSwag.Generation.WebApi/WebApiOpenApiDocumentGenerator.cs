@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Namotion.Reflection;
 using NJsonSchema;
@@ -100,7 +101,103 @@ namespace NSwag.Generation.WebApi
                     usedControllerTypes, schemaResolver, Settings.SchemaGenerator, Settings));
             }
 
+            AddNamespaceToDuplicateTypeNames(document);
+
             return document;
+        }
+
+        private void AddNamespaceToDuplicateTypeNames(OpenApiDocument document)
+        {
+            var duplicateDefinitionGroups = document.DefinitionsMap.GroupBy(m => m.AttemptedTypeName).Where(g => g.Count() > 1).ToList();
+
+            foreach (var duplicateDefinitionGroup in duplicateDefinitionGroups)
+            {
+                var typeNameWrappers = duplicateDefinitionGroup.Select(i => new TypeNameWrapper()
+                {
+                    fullName = i.Type.FullName,
+                    parts = i.Type.FullName.Split('.').Reverse().ToList(),
+                    differentDepth = 0
+                })
+                .ToList();
+
+
+                FindUncommonPart(typeNameWrappers, 1);
+
+                foreach (var definition in duplicateDefinitionGroup)
+                {
+                    StringBuilder typeNameSB = new StringBuilder();
+
+                    var correspondingTypeNameWrappers = typeNameWrappers.Where(p => p.fullName == definition.Type.FullName).Single();
+
+                    for (int i = correspondingTypeNameWrappers.differentDepth; i >= 0; i--)
+                    {
+                        if (correspondingTypeNameWrappers.depthsToIgnore.Contains(i))
+                        {
+                            continue;
+                        }
+
+                        typeNameSB.Append(correspondingTypeNameWrappers.parts[i]);
+                        if (i != 0)
+                        {
+                            typeNameSB.Append("_");
+                        }
+                    }
+
+                    var schema = document.Definitions[definition.GeneratedTypeName];
+                    document.Definitions.Remove(definition.GeneratedTypeName);
+                    document.Definitions.Add(typeNameSB.ToString(), schema);
+                }
+            }
+        }
+
+        private void FindUncommonPart(List<TypeNameWrapper> typeNameWrappers, int depth)
+        {
+            var sameDepthParts = typeNameWrappers.Select(w => w.parts[depth]).ToList();
+
+            //If all parts at that depth are the same, ignore them
+            if (sameDepthParts.Distinct().Count() == 1)
+            {
+                foreach (var typeNameWrapper in typeNameWrappers)
+                {
+                    typeNameWrapper.depthsToIgnore.Add(depth);
+                }
+
+            }
+
+            //If a part does not exist in other paths, this is the desired depth for that path
+            foreach (var typeNameWrapper in typeNameWrappers)
+            {
+                if (sameDepthParts.Where(part => part == typeNameWrapper.parts[depth]).Count() == 1)
+                {
+                    typeNameWrapper.differentDepth = depth;
+                }
+            }
+
+            //If this is the end of the namespace for a type, assign the last part
+            foreach (var typeNameWrapper in typeNameWrappers)
+            {
+                if(typeNameWrapper.parts.Count == depth + 1)
+                {
+                    typeNameWrapper.differentDepth = depth;
+                    typeNameWrapper.depthsToIgnore.Remove(depth);
+                }
+            }
+
+            //Only continue with paths that are not assigned a desired depth
+            var eligiblePaths = typeNameWrappers.Where(p => p.differentDepth == 0).ToList();
+
+            if (eligiblePaths.Any())
+            {
+                FindUncommonPart(eligiblePaths, depth + 1);
+            }
+        }
+
+        private class TypeNameWrapper
+        {
+            public string fullName;
+            public List<string> parts;
+            public int differentDepth;
+            public List<int> depthsToIgnore = new List<int>();
         }
 
         private async Task<OpenApiDocument> CreateDocumentAsync()
