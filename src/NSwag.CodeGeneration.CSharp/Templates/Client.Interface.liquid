@@ -7,19 +7,19 @@ public partial interface I{{ Class }}{% if HasClientBaseInterface %} : {{ Client
 {%   if GenerateOptionalParameters == false -%}
     {% template Client.Method.Documentation %}
     {% template Client.Method.Annotations %}
-    {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %} = null{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %});
+    {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %}{% if UseDefaultValueOptionalParameter and parameter.HasDefault %} = {{ parameter.Default }}{% else %} = null{% endif %}{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %});
 
 {%   endif -%}
 {%   if GenerateSyncMethods -%}
     {% template Client.Method.Documentation %}
     {% template Client.Method.Annotations %}
-    {{ operation.SyncResultType }} {{ operation.ActualOperationName }}({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %} = null{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %});
+    {{ operation.SyncResultType }} {{ operation.ActualOperationName }}({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %}{% if UseDefaultValueOptionalParameter and parameter.HasDefault %} = {{ parameter.Default }}{% else %} = null{% endif %}{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %});
 
 {%   endif -%}
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     {% template Client.Method.Documentation %}
     {% template Client.Method.Annotations %}
-    {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %} = null{% endif %}, {% endfor %}System.Threading.CancellationToken cancellationToken{% if GenerateOptionalParameters %} = default(System.Threading.CancellationToken){% endif %});
+    {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %}{% if UseDefaultValueOptionalParameter and parameter.HasDefault %} = {{ parameter.Default }}{% else %} = null{% endif %}{% endif %}, {% endfor %}System.Threading.CancellationToken cancellationToken{% if GenerateOptionalParameters %} = default(System.Threading.CancellationToken){% endif %});
 
 {% endfor -%}
 }

@@ -98,7 +98,7 @@
 {%     if GenerateOptionalParameters == false -%}
     {% template Client.Method.Documentation %}
     {% template Client.Method.Annotations %}
-    {{ operation.MethodAccessModifier }} {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %} = null{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %})
+    {{ operation.MethodAccessModifier }} {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %}{% if UseDefaultValueOptionalParameter and parameter.HasDefault %} = {{ parameter.Default }}{% else %} = null{% endif %}{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %})
     {
         return {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.VariableName }}, {% endfor %}System.Threading.CancellationToken.None);
     }
@@ -107,7 +107,7 @@
 {%     if GenerateSyncMethods -%}
     {% template Client.Method.Documentation %}
     {% template Client.Method.Annotations %}
-    {{ operation.MethodAccessModifier }} {{ operation.SyncResultType }} {{ operation.ActualOperationName }}({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %} = null{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %})
+    {{ operation.MethodAccessModifier }} {{ operation.SyncResultType }} {{ operation.ActualOperationName }}({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %}{% if UseDefaultValueOptionalParameter and parameter.HasDefault %} = {{ parameter.Default }}{% else %} = null{% endif %}{% endif %}{% if parameter.IsLast == false %}, {% endif %}{% endfor %})
     {
         {% if operation.HasResult or operation.WrapResponse %}return {% endif %}System.Threading.Tasks.Task.Run(async () => await {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.VariableName }}, {% endfor %}System.Threading.CancellationToken.None)).GetAwaiter().GetResult();
     }
@@ -116,7 +116,7 @@
     /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     {% template Client.Method.Documentation %}
     {% template Client.Method.Annotations %}
-    {{ operation.MethodAccessModifier }} async {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %} = null{% endif %}, {% endfor %}System.Threading.CancellationToken cancellationToken{% if GenerateOptionalParameters %} = default(System.Threading.CancellationToken){% endif %})
+    {{ operation.MethodAccessModifier }} async {{ operation.ResultType }} {{ operation.ActualOperationName }}Async({% for parameter in operation.Parameters %}{{ parameter.Type }} {{ parameter.VariableName }}{% if GenerateOptionalParameters and parameter.IsOptional %}{% if UseDefaultValueOptionalParameter and parameter.HasDefault %} = {{ parameter.Default }}{% else %} = null{% endif %}{% endif %}, {% endfor %}System.Threading.CancellationToken cancellationToken{% if GenerateOptionalParameters %} = default(System.Threading.CancellationToken){% endif %})
     {
 {%     for parameter in operation.PathParameters -%}
 {%         if parameter.IsNullable == false and parameter.IsRequired -%}

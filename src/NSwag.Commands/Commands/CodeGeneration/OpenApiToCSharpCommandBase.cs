@@ -58,6 +58,14 @@ namespace NSwag.Commands.CodeGeneration
             set { Settings.GenerateOptionalParameters = value; }
         }
 
+        [Argument(Name = "UseDefaultValueOptionalParameter", IsRequired = false,
+                  Description = "Gets or sets a value indicating to use default value for optional parameter if present")]
+        public bool UseDefaultValueOptionalParameter
+        {
+            get { return Settings.UseDefaultValueOptionalParameter; }
+            set { Settings.UseDefaultValueOptionalParameter = value; }
+        }
+
         [Argument(Name = "GenerateJsonMethods", IsRequired = false,
             Description = "Specifies whether to render ToJson() and FromJson() methods for DTOs (default: true).")]
         public bool GenerateJsonMethods

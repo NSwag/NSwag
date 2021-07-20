@@ -25,6 +25,11 @@ namespace NSwag.CodeGeneration.CSharp.Tests
             public void TestWithEnum([FromUri] MyEnum? myEnum = null)
             {
             }
+
+            [Route("TestWithDefaultEnum")]
+            public void TestWithDefaultEnum([FromUri] MyEnum? myEnum = MyEnum.Four)
+            {
+            }
         }
 
         public class FromUriAttribute : Attribute { }
@@ -123,6 +128,27 @@ namespace NSwag.CodeGeneration.CSharp.Tests
 
             //// Assert
             Assert.Contains("TestAsync(string a, string b, string c = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))", code);
+        }
+
+        [Fact]
+        public async Task When_setting_is_enabled_with_enum_fromuri_should_make_enum_nullable_and_have_default_value()
+        {
+            //// Arrange
+            var generator = new WebApiOpenApiDocumentGenerator(new WebApiOpenApiDocumentGeneratorSettings());
+            var document = await generator.GenerateForControllerAsync<TestController>();
+
+            //// Act
+            var codeGenerator = new CSharpClientGenerator(document, new CSharpClientGeneratorSettings
+            {
+                GenerateOptionalParameters = true,
+                UseDefaultValueOptionalParameter = true,
+            });
+            var code = codeGenerator.GenerateFile();
+
+            //// Assert
+            Assert.DoesNotContain("TestWithDefaultEnumAsync(MyEnum myEnum = null)", code);
+            Assert.DoesNotContain("TestWithDefaultEnumAsync(MyEnum? myEnum = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))", code);
+            Assert.Contains("public async System.Threading.Tasks.Task TestWithDefaultEnumAsync(MyEnum? myEnum = MyNamespace.MyEnum.Four, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))", code);
         }
     }
 }

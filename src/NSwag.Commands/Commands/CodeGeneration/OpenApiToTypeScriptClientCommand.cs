@@ -145,6 +145,14 @@ namespace NSwag.Commands.CodeGeneration
             set { Settings.GenerateOptionalParameters = value; }
         }
 
+        [Argument(Name = "UseDefaultValueOptionalParameter", IsRequired = false,
+                  Description = "Gets or sets a value indicating to use default value for optional parameter if present")]
+        public bool UseDefaultValueOptionalParameter
+        {
+            get { return Settings.UseDefaultValueOptionalParameter; }
+            set { Settings.UseDefaultValueOptionalParameter = value; }
+        }
+
         [Argument(Name = "ExportTypes", IsRequired = false, Description = "Specifies whether the export keyword should be added to all classes, interfaces and enums (default: true).")]
         public bool ExportTypes
         {
